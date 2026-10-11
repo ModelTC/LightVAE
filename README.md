@@ -4,11 +4,10 @@
 
 **Towards Compact and Efficient Video Autoencoders**
 
-Wan2.1 · Wan2.2 · MiniMax-H3
-
 [🤗 Models](https://huggingface.co/lightx2v/LightVAE) · [📄 Paper](#) · [⚡ LightX2V](https://github.com/ModelTC/LightX2V)
 
 </div>
+
 
 ## ✨ Overview
 
@@ -47,29 +46,24 @@ Each clip is reconstructed separately, then concatenated into a 372-frame
 comparison. Timings use eager execution with one warmup run and the median
 of three timed runs. PSNR is measured before MP4 compression.
 
-<!-- Drag each MP4 into the GitHub editor, then copy its generated attachment URL
-into the matching video src below. Remove any duplicate URL inserted by the editor. -->
 
 ### Wan2.1
 
 **Left → right:** Original VAE · LightVAE-Pro · LightVAE-Lite
 
-<!-- Replace WAN21_VIDEO_URL with the uploaded wan21_compare.mp4 attachment URL. -->
-<video src="WAN21_VIDEO_URL" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/b6742c40-0b68-4dfd-bb87-09eb64891ff2" controls width="100%"></video>
 
 ### Wan2.2
 
 **Left → right:** Original VAE · LightVAE-Pro · LightVAE-Lite
 
-<!-- Replace WAN22_VIDEO_URL with the uploaded wan22_compare.mp4 attachment URL. -->
-<video src="WAN22_VIDEO_URL" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/694a7e50-3d09-40e3-aec1-33e9a946904d" controls width="100%"></video>
 
 ### MiniMax-H3
 
 **Left → right:** Original VAE · Lite decoder · Lite encoder + decoder
 
-<!-- Replace H3_VIDEO_URL with the uploaded h3_compare.mp4 attachment URL. -->
-<video src="H3_VIDEO_URL" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/309d277e-9f0c-488d-9734-b1eec95ecaad" controls width="100%"></video>
 
 ---
 
