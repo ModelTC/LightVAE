@@ -1,0 +1,194 @@
+{
+  "family": "wan21",
+  "kept": [
+    0,
+    2,
+    5,
+    8,
+    11
+  ],
+  "packed_records": [
+    {
+      "path": "conv1",
+      "shape": [
+        384,
+        16,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 59,
+      "bias": true
+    },
+    {
+      "path": "middle.0.residual.2",
+      "shape": [
+        384,
+        384,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 147,
+      "bias": true
+    },
+    {
+      "path": "middle.0.residual.6",
+      "shape": [
+        384,
+        384,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 133,
+      "bias": true
+    },
+    {
+      "path": "upsamples.0.residual.2",
+      "shape": [
+        384,
+        384,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 162,
+      "bias": true
+    },
+    {
+      "path": "upsamples.0.residual.6",
+      "shape": [
+        384,
+        384,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 164,
+      "bias": true
+    },
+    {
+      "path": "upsamples.3.time_conv",
+      "shape": [
+        768,
+        384,
+        3,
+        1,
+        1
+      ],
+      "padding": 0,
+      "rank": 163,
+      "bias": true
+    },
+    {
+      "path": "upsamples.4.residual.2",
+      "shape": [
+        384,
+        192,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 139,
+      "bias": true
+    },
+    {
+      "path": "upsamples.4.residual.6",
+      "shape": [
+        384,
+        384,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 166,
+      "bias": true
+    },
+    {
+      "path": "upsamples.7.time_conv",
+      "shape": [
+        768,
+        384,
+        3,
+        1,
+        1
+      ],
+      "padding": 0,
+      "rank": 188,
+      "bias": true
+    },
+    {
+      "path": "upsamples.8.residual.2",
+      "shape": [
+        192,
+        192,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 0,
+      "bias": true
+    },
+    {
+      "path": "upsamples.8.residual.6",
+      "shape": [
+        192,
+        192,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 0,
+      "bias": true
+    },
+    {
+      "path": "upsamples.12.residual.2",
+      "shape": [
+        96,
+        96,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 0,
+      "bias": true
+    },
+    {
+      "path": "upsamples.12.residual.6",
+      "shape": [
+        96,
+        96,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 0,
+      "bias": true
+    },
+    {
+      "path": "head.2",
+      "shape": [
+        3,
+        96,
+        3,
+        3,
+        3
+      ],
+      "padding": 1,
+      "rank": 2,
+      "bias": true
+    }
+  ]
+}

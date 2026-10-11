@@ -1,0 +1,8 @@
+torch>=2.8
+triton>=3.4
+einops
+safetensors
+numpy
+av
+Pillow
+huggingface_hub>=0.34
