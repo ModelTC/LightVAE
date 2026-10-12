@@ -51,19 +51,19 @@ of three timed runs. PSNR is measured before MP4 compression.
 
 **Left → right:** Original VAE · LightVAE-Pro · LightVAE-Lite
 
-<video src="https://github.com/user-attachments/assets/b6742c40-0b68-4dfd-bb87-09eb64891ff2" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/94f0175c-a9bf-4f08-a178-45989785e087" controls width="100%"></video>
 
 ### Wan2.2
 
 **Left → right:** Original VAE · LightVAE-Pro · LightVAE-Lite
 
-<video src="https://github.com/user-attachments/assets/694a7e50-3d09-40e3-aec1-33e9a946904d" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/5084f558-c200-4764-98cd-8011d95b915f" controls width="100%"></video>
 
 ### MiniMax-H3
 
 **Left → right:** Original VAE · Lite decoder · Lite encoder + decoder
 
-<video src="https://github.com/user-attachments/assets/309d277e-9f0c-488d-9734-b1eec95ecaad" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/023473e8-8a91-4ffc-91b5-e7e42f0abf4b" controls width="100%"></video>
 
 ---
 
