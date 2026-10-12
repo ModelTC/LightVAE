@@ -2,7 +2,7 @@
 
 from torch import nn
 
-from base_vae.h3_vae_encoder import Encoder as BaseEncoder
+from .base_vae.h3_vae_encoder import Encoder as BaseEncoder
 
 
 class ResidualShortcut(nn.Module):

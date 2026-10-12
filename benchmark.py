@@ -10,9 +10,10 @@ import sys
 
 import torch
 
+from lightvae.utils import latent_frames, padded_frames
 from utils import (DECODERS, DEFAULT_WEIGHTS_DIR, DTYPES, FAMILIES, ROOT, VARIANTS,
-                   build_model, check_precision, decoder_spec, environment, latent_frames,
-                   measure, padded_frames, positive_int, read_config, setup)
+                   build_model, check_precision, decoder_spec, environment,
+                   measure, positive_int, read_config, setup)
 
 
 def make_parser():

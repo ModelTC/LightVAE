@@ -1,6 +1,6 @@
 """MiniMax-H3 LightVAE-Lite decoder with transformer-block pruning."""
 
-from base_vae.h3_vae_decoder import Decoder as BaseDecoder
+from .base_vae.h3_vae_decoder import Decoder as BaseDecoder
 
 
 class Decoder(BaseDecoder):

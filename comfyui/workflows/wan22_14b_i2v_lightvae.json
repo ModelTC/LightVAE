@@ -1,0 +1,952 @@
+{
+  "last_node_id": 17,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "title": "Read before running",
+      "pos": [
+        20,
+        -310
+      ],
+      "size": [
+        770,
+        250
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "## Video generation — not reconstruction\nSelect model files and edit the prompts. Upload an image for I2V.\n\n**VAE family: wan21.** Wan2.2 14B uses wan21 (16 channels); 5B uses wan22 (48 channels).\n\nChoose Pro / Lite in Load LightVAE. To compare with the original, choose decoder=none and encoder=none; the connected base_vae is used unchanged. Keep the same seed. No turbo LoRA is used.\n\nSee comfyui/workflows/README.md for model downloads. LightVAE accelerates VAE decoding, not the sampler."
+      ]
+    },
+    {
+      "id": 2,
+      "type": "UNETLoader",
+      "title": "Diffusion model (high-noise expert)",
+      "pos": [
+        20,
+        20
+      ],
+      "size": [
+        410,
+        115
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "models": [
+          {
+            "name": "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "CLIPLoader",
+      "title": "CLIPLoader",
+      "pos": [
+        20,
+        185
+      ],
+      "size": [
+        410,
+        115
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2,
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "models": [
+          {
+            "name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+        "wan",
+        "default"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "title": "Original VAE: unchanged encoder / baseline",
+      "pos": [
+        20,
+        350
+      ],
+      "size": [
+        410,
+        115
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "wan_2.1_vae.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "wan_2.1_vae.safetensors"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LightVAELoader",
+      "title": "LightVAE: choose Pro / Lite (none = original via base_vae)",
+      "pos": [
+        470,
+        410
+      ],
+      "size": [
+        510,
+        225
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "base_vae",
+          "type": "VAE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            7,
+            19
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LightVAELoader"
+      },
+      "widgets_values": [
+        "lightvae-lite-wan21-decoder-comfy.safetensors",
+        "none",
+        "auto",
+        "auto",
+        "auto"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "title": "Positive prompt",
+      "pos": [
+        490,
+        20
+      ],
+      "size": [
+        480,
+        160
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "The subject in the input image turns gently toward the camera. Natural motion, consistent appearance, slow cinematic camera movement."
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "title": "Negative prompt",
+      "pos": [
+        490,
+        210
+      ],
+      "size": [
+        480,
+        150
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "Blur, distorted anatomy, extra limbs, text, subtitles, watermark, flickering, low quality."
+      ]
+    },
+    {
+      "id": 8,
+      "type": "ModelSamplingSD3",
+      "title": "Flow shift",
+      "pos": [
+        1050,
+        20
+      ],
+      "size": [
+        330,
+        100
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingSD3"
+      },
+      "widgets_values": [
+        5.0
+      ]
+    },
+    {
+      "id": 9,
+      "type": "WanImageToVideo",
+      "title": "Wan2.2 14B image conditioning — original encoder",
+      "pos": [
+        1050,
+        465
+      ],
+      "size": [
+        340,
+        240
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 7
+        },
+        {
+          "name": "clip_vision_output",
+          "type": "CLIP_VISION_OUTPUT",
+          "link": null
+        },
+        {
+          "name": "start_image",
+          "type": "IMAGE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            10,
+            15
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            11,
+            16
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            12
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "WanImageToVideo"
+      },
+      "widgets_values": [
+        640,
+        640,
+        81,
+        1
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "title": "Input image: upload your own",
+      "pos": [
+        20,
+        540
+      ],
+      "size": [
+        360,
+        320
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "KSamplerAdvanced",
+      "title": "High-noise: steps 0 to 10 / 20",
+      "pos": [
+        1430,
+        20
+      ],
+      "size": [
+        335,
+        350
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 9
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 10
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 11
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            17
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerAdvanced"
+      },
+      "widgets_values": [
+        "enable",
+        42,
+        "fixed",
+        20,
+        3.5,
+        "euler",
+        "simple",
+        0,
+        10,
+        "enable"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "UNETLoader",
+      "title": "Diffusion model (low-noise expert)",
+      "pos": [
+        470,
+        755
+      ],
+      "size": [
+        410,
+        115
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "models": [
+          {
+            "name": "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "ModelSamplingSD3",
+      "title": "Same flow shift for low-noise expert",
+      "pos": [
+        1050,
+        790
+      ],
+      "size": [
+        330,
+        100
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            14
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingSD3"
+      },
+      "widgets_values": [
+        5.0
+      ]
+    },
+    {
+      "id": 14,
+      "type": "KSamplerAdvanced",
+      "title": "Low-noise: steps 10 to 20 / 20 (do not add noise)",
+      "pos": [
+        1430,
+        435
+      ],
+      "size": [
+        345,
+        350
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 14
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 15
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 16
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            18
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerAdvanced"
+      },
+      "widgets_values": [
+        "disable",
+        0,
+        "fixed",
+        20,
+        3.5,
+        "euler",
+        "simple",
+        10,
+        20,
+        "disable"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "VAEDecode",
+      "title": "Decode video with selected LightVAE",
+      "pos": [
+        1820,
+        40
+      ],
+      "size": [
+        330,
+        100
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 18
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 16,
+      "type": "CreateVideo",
+      "title": "Assemble MP4 frames / optional native audio",
+      "pos": [
+        1820,
+        190
+      ],
+      "size": [
+        350,
+        175
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 20
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            21
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        16,
+        "auto",
+        "sRGB",
+        "none"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "SaveVideo",
+      "title": "Save generated MP4",
+      "pos": [
+        1820,
+        445
+      ],
+      "size": [
+        420,
+        350
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveVideo"
+      },
+      "widgets_values": [
+        "LightVAE/wan22_14b_i2v_lightvae",
+        "auto",
+        "auto"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      4,
+      0,
+      5,
+      0,
+      "VAE"
+    ],
+    [
+      2,
+      3,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      3,
+      0,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      2,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      5,
+      6,
+      0,
+      9,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      7,
+      0,
+      9,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      5,
+      0,
+      9,
+      2,
+      "VAE"
+    ],
+    [
+      8,
+      10,
+      0,
+      9,
+      4,
+      "IMAGE"
+    ],
+    [
+      9,
+      8,
+      0,
+      11,
+      0,
+      "MODEL"
+    ],
+    [
+      10,
+      9,
+      0,
+      11,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      11,
+      9,
+      1,
+      11,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      12,
+      9,
+      2,
+      11,
+      3,
+      "LATENT"
+    ],
+    [
+      13,
+      12,
+      0,
+      13,
+      0,
+      "MODEL"
+    ],
+    [
+      14,
+      13,
+      0,
+      14,
+      0,
+      "MODEL"
+    ],
+    [
+      15,
+      9,
+      0,
+      14,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      16,
+      9,
+      1,
+      14,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      17,
+      11,
+      0,
+      14,
+      3,
+      "LATENT"
+    ],
+    [
+      18,
+      14,
+      0,
+      15,
+      0,
+      "LATENT"
+    ],
+    [
+      19,
+      5,
+      0,
+      15,
+      1,
+      "VAE"
+    ],
+    [
+      20,
+      15,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      16,
+      0,
+      17,
+      0,
+      "VIDEO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        40,
+        340
+      ]
+    },
+    "lightvae_recipe": "wan22_14b_i2v_lightvae"
+  },
+  "version": 0.4
+}

@@ -8,3 +8,10 @@ weights/
 *.pth
 *.safetensors
 .DS_Store
+/exports/
+/tests/
+/tools/
+/kernels.json
+/build/
+/dist/
+*.egg-info/

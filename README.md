@@ -4,6 +4,8 @@
 
 **Towards Compact and Efficient Video Autoencoders**
 
+Wan2.1 · Wan2.2 · MiniMax-H3
+
 [🤗 Models](https://huggingface.co/lightx2v/LightVAE) · [📄 Paper](#) · [⚡ LightX2V](https://github.com/ModelTC/LightX2V)
 
 </div>
@@ -25,6 +27,12 @@ original latent interface, so the original encoder can be used directly.
 This repository provides **video reconstruction** and **decoder speed benchmarks**.
 To use LightVAE in a video generation pipeline, see
 [LightX2V](https://github.com/ModelTC/LightX2V).
+
+For **ComfyUI**, see the [custom node, wiring examples and measured results](comfyui/README.md)
+and the [ready-to-use video generation workflows](comfyui/workflows/README.md).
+The node keeps Wan's temporal low-rank factors and supports the standard `VAE`
+encode/decode interface. Triton is optional: compatible NVIDIA GPUs use fused
+kernels; other supported PyTorch devices use a factored PyTorch path.
 
 ![Architecture comparison of Wan2.1 VAE, Turbo-VAED, Flash-VAED, and LightVAE](assets/architecture.png)
 
@@ -77,6 +85,21 @@ git clone https://github.com/ModelTC/LightVAE.git
 cd LightVAE
 python -m pip install -r requirements.txt
 ```
+
+This installs the shared **`lightvae`** package and the reconstruction/download dependencies.
+For model-only or ComfyUI usage, use `python -m pip install .`; for local development,
+use `python -m pip install -e ".[cli]"`. The CLI scripts and ComfyUI node share the same
+model definitions and kernels—there is no separate ComfyUI runtime copy.
+
+```python
+from lightvae.wan21_lightvae_decoder import Decoder
+from lightvae.h3_lightvae_encoder import Encoder
+```
+
+Triton is optional (usually included with NVIDIA Linux PyTorch). For a compatible
+Linux CUDA environment, `python -m pip install "triton>=3.4"` enables fused Wan
+kernels. H3 uses PyTorch operations. See the [GPU support matrix](comfyui/README.md#gpu-support)
+for backend selection, tested hardware and limitations.
 
 
 ## 🤗 Model Weights

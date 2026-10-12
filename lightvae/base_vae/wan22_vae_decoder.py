@@ -8,7 +8,7 @@ from pathlib import Path
 import torch
 from torch import nn
 
-from utils import load_component
+from ..utils import load_component
 
 from . import wan22_vae_layers as native
 from .wan22_vae_layers import (CACHE_T, AttentionBlock, CausalConv3d, RMS_norm, ResidualBlock, Up_ResidualBlock)

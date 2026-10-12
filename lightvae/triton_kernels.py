@@ -14,10 +14,16 @@ def _add_bf16(a, b):
 
 
 @triton.jit
+def _add_bf16_portable(a, b):
+    return (a.to(tl.float32) + b.to(tl.float32)).to(tl.bfloat16)
+
+
+@triton.jit
 def _norm(X, G, B, Y, C: tl.constexpr, T: tl.constexpr, H: tl.constexpr,
           W: tl.constexpr, S0: tl.constexpr, S1: tl.constexpr,
           S2: tl.constexpr, S3: tl.constexpr, S4: tl.constexpr,
-          SCALE: tl.constexpr, SILU: tl.constexpr, BC: tl.constexpr, BS: tl.constexpr):
+          SCALE: tl.constexpr, SILU: tl.constexpr, BC: tl.constexpr, BS: tl.constexpr,
+          NATIVE_BF16: tl.constexpr):
     batch = tl.program_id(1)
     s = tl.program_id(0) * BS + tl.arange(0, BS)
     ch = tl.arange(0, BC)
@@ -25,11 +31,15 @@ def _norm(X, G, B, Y, C: tl.constexpr, T: tl.constexpr, H: tl.constexpr,
     offsets = batch * S0 + ch[:, None] * S1 + spatial[None, :]
     mask = (ch[:, None] < C) & (s[None, :] < T * H * W)
     x_low = tl.load(X + offsets, mask, other=0)
-    squares = tl.inline_asm_elementwise(
-        "mul.rn.bf16 $0, $1, $2;", constraints="=h,h,h", args=[x_low, x_low],
-        dtype=tl.bfloat16, is_pure=True, pack=1,
-    )
-    squared_length = tl.reduce(squares, 0, _add_bf16).to(tl.float32)
+    if NATIVE_BF16:
+        squares = tl.inline_asm_elementwise(
+            "mul.rn.bf16 $0, $1, $2;", constraints="=h,h,h", args=[x_low, x_low],
+            dtype=tl.bfloat16, is_pure=True, pack=1,
+        )
+        squared_length = tl.reduce(squares, 0, _add_bf16).to(tl.float32)
+    else:
+        squares = (x_low.to(tl.float32) * x_low.to(tl.float32)).to(tl.bfloat16)
+        squared_length = tl.reduce(squares, 0, _add_bf16_portable).to(tl.float32)
     dtype = X.dtype.element_ty
     length = tl.sqrt(squared_length).to(dtype).to(tl.float32)
     eps = tl.full((), 1.e-12, tl.float32).to(dtype).to(tl.float32)
@@ -56,6 +66,7 @@ def rms_silu(x, gamma, bias, scale, silu):
         _norm[(triton.cdiv(t * h * w, 32), n)](
             x, gamma.contiguous(), bias.contiguous(), out, c, t, h, w,
             *strides, scale, silu, triton.next_power_of_2(c), 32,
+            torch.cuda.get_device_capability(x.device)[0] >= 9,
             num_warps=8, enable_fp_fusion=False,
         )
     return out

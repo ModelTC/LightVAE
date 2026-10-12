@@ -1,0 +1,7 @@
+prune tests
+prune tools
+prune comfyui
+prune .cache
+prune exports
+prune outputs
+global-exclude *.py[cod] *.safetensors *.pt *.pth

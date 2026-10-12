@@ -1,0 +1,3 @@
+# Install the shared package first, using the same Python as ComfyUI:
+#   python -m pip install /path/to/LightVAE
+# Its dependencies include torch, safetensors and einops. Triton is optional.

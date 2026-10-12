@@ -4,9 +4,9 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from utils import frames
+from .utils import frames
 
-from .triton_kernels import fused_history_up
+from .kernels import fused_history_up
 
 
 class TLR(nn.Module):
@@ -22,6 +22,14 @@ class TLR(nn.Module):
         self.up = nn.Conv2d(rank, co, 1, bias=False) if rank else nn.Identity()
         self.bias = nn.Parameter(torch.zeros(co)) if bias else None
         self.folded = False
+        self.backend = "auto"
+
+    def prepare_folded(self):
+        """Allocate the inference layout for an already-folded checkpoint."""
+        bias = None if self.bias is None else self.bias.new_empty(self.co + 2 * self.rank)
+        del self.bias
+        self.register_buffer("packed_bias", bias)
+        self.folded = True
 
     @torch.no_grad()
     def fold(self):
@@ -48,7 +56,7 @@ class TLR(nn.Module):
         projected = projected.reshape(batch, time, self.co + 2 * self.rank, height, width)
         if not self.rank:
             return projected.permute(0, 2, 1, 3, 4), None
-        output = fused_history_up(projected, self.up.weight, cache)
+        output = fused_history_up(projected, self.up.weight, cache, self.backend)
         z = projected[:, :, self.co:]
         if time >= 2:
             new_cache = z[:, -2:].clone()

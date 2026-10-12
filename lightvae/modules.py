@@ -5,14 +5,14 @@ from pathlib import Path
 import torch
 from torch import nn
 
-from base_vae import wan21_vae_layers as wan21
-from base_vae.wan21_vae_decoder import Decoder3d as Wan21Decoder3d
-from base_vae import wan22_vae_layers as wan22
-from base_vae.wan22_vae_decoder import Decoder3d as Wan22Decoder3d
-from utils import architecture, frames, load_lightvae_checkpoint, replace_norms_and_upsamples, unframes
+from .base_vae import wan21_vae_layers as wan21
+from .base_vae.wan21_vae_decoder import Decoder3d as Wan21Decoder3d
+from .base_vae import wan22_vae_layers as wan22
+from .base_vae.wan22_vae_decoder import Decoder3d as Wan22Decoder3d
+from .utils import architecture, frames, load_lightvae_checkpoint, replace_norms_and_upsamples, unframes
 
 from .tlr import TLR
-from .triton_kernels import rms_silu
+from .kernels import rms_silu
 
 
 class FusedNorm(nn.Module):
@@ -25,9 +25,10 @@ class FusedNorm(nn.Module):
             else torch.full_like(source.gamma, bias),
         )
         self.scale, self.silu = source.scale, silu
+        self.backend = "auto"
 
     def forward(self, x):
-        return rms_silu(x, self.gamma, self.bias, self.scale, self.silu)
+        return rms_silu(x, self.gamma, self.bias, self.scale, self.silu, self.backend)
 
 
 class Shortcut(nn.Module):
@@ -116,17 +117,26 @@ class Decoder(nn.Module):
                 raise ValueError("Checkpoint family, residual depth or TLR ranks differ from config")
         with torch.device("meta"):
             self.component = _Component(config)
-        if saved is None:
-            self.component.initialize(self.family)
-        else:
-            self.component.load_state_dict(saved["model"], strict=True, assign=True)
-            self.component.float()
-        for layer in self.component.modules():
-            if isinstance(layer, TLR):
-                layer.fold()
         native = wan21 if self.family == "wan21" else wan22
-        replace_norms_and_upsamples(self.component, native, FusedNorm)
+        folded = saved is not None and saved.get("runtime_format") == "folded-v1"
+        if folded:
+            for layer in self.component.modules():
+                if isinstance(layer, TLR):
+                    layer.prepare_folded()
+            replace_norms_and_upsamples(self.component, native, FusedNorm)
+            self.component.load_state_dict(saved["model"], strict=True, assign=True)
+        else:
+            if saved is None:
+                self.component.initialize(self.family)
+            else:
+                self.component.load_state_dict(saved["model"], strict=True, assign=True)
+                self.component.float()
+            for layer in self.component.modules():
+                if isinstance(layer, TLR):
+                    layer.fold()
+            replace_norms_and_upsamples(self.component, native, FusedNorm)
         self.slots = sum(isinstance(layer, TLR) for layer in self.component.modules())
+        self.input_is_normalized = True
         self.eval().requires_grad_(False)
 
     def _apply_layer(self, layer, x, history, slot):
@@ -157,13 +167,10 @@ class Decoder(nn.Module):
         return layer(x)
 
     def forward(self, z):
-        if (not z.is_cuda or z.dtype != torch.bfloat16
-                or torch.cuda.get_device_capability(z.device)[0] < 9):
-            raise ValueError("LightVAE inference requires CUDA BF16 on Hopper/Blackwell (SM90+)")
         if z.ndim != 5 or z.shape[1] != self.latent_channels or min(z.shape) < 1:
             raise ValueError(f"Expected nonempty B,{self.latent_channels},T,H,W latent")
         component, decoder = self.component, self.component.decoder
-        if self.family == "wan21":
+        if self.family == "wan21" and self.input_is_normalized:
             mean = component.latents_mean.view(1, -1, 1, 1, 1)
             std = component.latents_std.view(1, -1, 1, 1, 1)
             z = z / std.reciprocal() + mean

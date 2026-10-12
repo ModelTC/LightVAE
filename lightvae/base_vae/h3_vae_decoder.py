@@ -21,7 +21,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-from utils import H3Module, blend, h3_decoded_frames, h3_model_config, load_h3_component, split_tiles, stitch_tiles
+from ..utils import H3Module, blend, h3_decoded_frames, h3_model_config, load_h3_component, split_tiles, stitch_tiles
 
 # Modified for standalone inference: pipeline and training machinery removed.
 # State-dict names follow Diffusers' MiniMax-H3 implementation.
