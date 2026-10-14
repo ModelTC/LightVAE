@@ -6,7 +6,7 @@
 
 Wan2.1 · Wan2.2 · MiniMax-H3
 
-[🤗 Models](https://huggingface.co/lightx2v/LightVAE) · [📄 Paper](#) · [⚡ LightX2V](https://github.com/ModelTC/LightX2V)
+[🤗 Models](https://huggingface.co/lightx2v/LightVAE) · [📄 Paper](https://arxiv.org/abs/2610.14726) · [⚡ LightX2V](https://github.com/ModelTC/LightX2V)
 
 </div>
 
