@@ -1,6 +1,6 @@
 {
-  "last_node_id": 17,
-  "last_link_id": 21,
+  "last_node_id": 19,
+  "last_link_id": 22,
   "nodes": [
     {
       "id": 1,
@@ -11,8 +11,8 @@
         -310
       ],
       "size": [
-        770,
-        250
+        950,
+        230
       ],
       "flags": {},
       "order": 0,
@@ -23,13 +23,13 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "## Video generation — not reconstruction\nSelect model files and edit the prompts. Upload an image for I2V.\n\n**VAE family: wan21.** Wan2.2 14B uses wan21 (16 channels); 5B uses wan22 (48 channels).\n\nChoose Pro / Lite in Load LightVAE. To compare with the original, choose decoder=none and encoder=none; the connected base_vae is used unchanged. Keep the same seed. No turbo LoRA is used.\n\nSee comfyui/workflows/README.md for model downloads. LightVAE accelerates VAE decoding, not the sampler."
+        "## H3 FL2V — replace the VIDEO DECODER only\nfl2va DiT; 1344x768, 124 frames, 24 FPS, 20 base steps. No turbo LoRA.\n\nThe original H3 video VAE directly encodes the first and last frames. Load H3 LightVAE feeds only VAE Decode: keep encoder = none, choose the Lite decoder, or decoder = none for a baseline.\n\nUpload first_frame.png and last_frame.png. Disconnect last_frame for I2V; disconnect both for T2V. Audio VAE stays original. Seed 42 is fixed for comparisons."
       ]
     },
     {
       "id": 2,
       "type": "UNETLoader",
-      "title": "Diffusion model (high-noise expert)",
+      "title": "H3 fl2va DiT — BF16, large model",
       "pos": [
         20,
         20
@@ -47,7 +47,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            4
+            5
           ],
           "slot_index": 0
         }
@@ -56,21 +56,21 @@
         "Node name for S&R": "UNETLoader",
         "models": [
           {
-            "name": "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
-            "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+            "name": "minimax_h3_fl2va_bf16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_fl2va_bf16.safetensors",
             "directory": "diffusion_models"
           }
         ]
       },
       "widgets_values": [
-        "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+        "minimax_h3_fl2va_bf16.safetensors",
         "default"
       ]
     },
     {
       "id": 3,
       "type": "CLIPLoader",
-      "title": "CLIPLoader",
+      "title": "Qwen3-VL for H3 (type = minimax)",
       "pos": [
         20,
         185
@@ -88,8 +88,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            2,
-            3
+            1
           ],
           "slot_index": 0
         }
@@ -98,22 +97,22 @@
         "Node name for S&R": "CLIPLoader",
         "models": [
           {
-            "name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
-            "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+            "name": "qwen3vl_32b_minimax_h3_bf16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_bf16.safetensors",
             "directory": "text_encoders"
           }
         ]
       },
       "widgets_values": [
-        "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
-        "wan",
+        "qwen3vl_32b_minimax_h3_bf16.safetensors",
+        "minimax",
         "default"
       ]
     },
     {
       "id": 4,
       "type": "VAELoader",
-      "title": "Original VAE: unchanged encoder / baseline",
+      "title": "Original AUDIO VAE — do not replace with video VAE",
       "pos": [
         20,
         350
@@ -131,7 +130,7 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            1
+            15
           ],
           "slot_index": 0
         }
@@ -140,36 +139,36 @@
         "Node name for S&R": "VAELoader",
         "models": [
           {
-            "name": "wan_2.1_vae.safetensors",
-            "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors",
+            "name": "minimax_h3_audio_vae_fp32.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors",
             "directory": "vae"
           }
         ]
       },
       "widgets_values": [
-        "wan_2.1_vae.safetensors"
+        "minimax_h3_audio_vae_fp32.safetensors"
       ]
     },
     {
       "id": 5,
       "type": "LightVAELoader",
-      "title": "LightVAE: choose Pro / Lite (none = original via base_vae)",
+      "title": "H3 LightVAE — encoder / decoder (none = original)",
       "pos": [
         470,
-        410
+        20
       ],
       "size": [
         510,
-        225
+        120
       ],
       "flags": {},
-      "order": 4,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "name": "base_vae",
           "type": "VAE",
-          "link": 1
+          "link": 21
         }
       ],
       "outputs": [
@@ -177,8 +176,7 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            7,
-            19
+            17
           ],
           "slot_index": 0
         }
@@ -187,170 +185,45 @@
         "Node name for S&R": "LightVAELoader"
       },
       "widgets_values": [
-        "lightvae-lite-wan21-decoder-comfy.safetensors",
-        "none",
-        "auto",
-        "auto",
-        "auto"
+        "lightvae-lite-h3-decoder.safetensors",
+        "none"
       ]
     },
     {
       "id": 6,
-      "type": "CLIPTextEncode",
-      "title": "Positive prompt",
+      "type": "MiniMaxH3ImageToVideo",
+      "title": "FL2V conditioning — ORIGINAL encoder",
       "pos": [
-        490,
-        20
+        480,
+        300
       ],
       "size": [
-        480,
-        160
+        510,
+        330
       ],
       "flags": {},
-      "order": 5,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            5
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "The subject in the input image turns gently toward the camera. Natural motion, consistent appearance, slow cinematic camera movement."
-      ]
-    },
-    {
-      "id": 7,
-      "type": "CLIPTextEncode",
-      "title": "Negative prompt",
-      "pos": [
-        490,
-        210
-      ],
-      "size": [
-        480,
-        150
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 3
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            6
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "Blur, distorted anatomy, extra limbs, text, subtitles, watermark, flickering, low quality."
-      ]
-    },
-    {
-      "id": 8,
-      "type": "ModelSamplingSD3",
-      "title": "Flow shift",
-      "pos": [
-        1050,
-        20
-      ],
-      "size": [
-        330,
-        100
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 4
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            9
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ModelSamplingSD3"
-      },
-      "widgets_values": [
-        5.0
-      ]
-    },
-    {
-      "id": 9,
-      "type": "WanImageToVideo",
-      "title": "Wan2.2 14B image conditioning — original encoder",
-      "pos": [
-        1050,
-        465
-      ],
-      "size": [
-        340,
-        240
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 5
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 6
+          "link": 1
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 7
+          "link": 2
         },
         {
-          "name": "clip_vision_output",
-          "type": "CLIP_VISION_OUTPUT",
-          "link": null
-        },
-        {
-          "name": "start_image",
+          "name": "first_frame",
           "type": "IMAGE",
-          "link": 8
+          "link": 4
+        },
+        {
+          "name": "last_frame",
+          "type": "IMAGE",
+          "link": 22
         }
       ],
       "outputs": [
@@ -358,53 +231,43 @@
           "name": "positive",
           "type": "CONDITIONING",
           "links": [
-            10,
-            15
+            7
           ],
           "slot_index": 0
         },
         {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "links": [
-            11,
-            16
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "latent",
+          "name": "LATENT",
           "type": "LATENT",
           "links": [
-            12
+            13
           ],
-          "slot_index": 2
+          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "WanImageToVideo"
+        "Node name for S&R": "MiniMaxH3ImageToVideo"
       },
       "widgets_values": [
-        640,
-        640,
-        81,
-        1
+        "A cinematic continuous shot connecting the first and last frames. Preserve the subject's appearance, use natural motion and smooth camera movement, with synchronized ambient sound. No subtitles or logos.",
+        1344,
+        768,
+        124
       ]
     },
     {
-      "id": 10,
+      "id": 7,
       "type": "LoadImage",
-      "title": "Input image: upload your own",
+      "title": "First frame — original VAE encoding",
       "pos": [
         20,
-        540
+        690
       ],
       "size": [
         360,
         320
       ],
       "flags": {},
-      "order": 9,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -412,7 +275,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            8
+            4
           ],
           "slot_index": 0
         },
@@ -427,164 +290,62 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "example.png",
+        "first_frame.png",
         "image"
       ]
     },
     {
-      "id": 11,
-      "type": "KSamplerAdvanced",
-      "title": "High-noise: steps 0 to 10 / 20",
+      "id": 8,
+      "type": "MiniMaxH3SigmaShift",
+      "title": "H3 video/audio flow shifts",
       "pos": [
-        1430,
+        1060,
         20
       ],
       "size": [
-        335,
-        350
+        320,
+        110
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 9
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 10
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 11
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 12
+          "link": 5
         }
       ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            17
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSamplerAdvanced"
-      },
-      "widgets_values": [
-        "enable",
-        42,
-        "fixed",
-        20,
-        3.5,
-        "euler",
-        "simple",
-        0,
-        10,
-        "enable"
-      ]
-    },
-    {
-      "id": 12,
-      "type": "UNETLoader",
-      "title": "Diffusion model (low-noise expert)",
-      "pos": [
-        470,
-        755
-      ],
-      "size": [
-        410,
-        115
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [],
       "outputs": [
         {
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            13
+            6,
+            8
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "UNETLoader",
-        "models": [
-          {
-            "name": "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
-            "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
-            "directory": "diffusion_models"
-          }
-        ]
+        "Node name for S&R": "MiniMaxH3SigmaShift"
       },
       "widgets_values": [
-        "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
-        "default"
+        12,
+        3
       ]
     },
     {
-      "id": 13,
-      "type": "ModelSamplingSD3",
-      "title": "Same flow shift for low-noise expert",
+      "id": 9,
+      "type": "BasicGuider",
+      "title": "No CFG (base H3)",
       "pos": [
-        1050,
-        790
+        1060,
+        190
       ],
       "size": [
         330,
         100
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 13
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            14
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ModelSamplingSD3"
-      },
-      "widgets_values": [
-        5.0
-      ]
-    },
-    {
-      "id": 14,
-      "type": "KSamplerAdvanced",
-      "title": "Low-noise: steps 10 to 20 / 20 (do not add noise)",
-      "pos": [
-        1430,
-        435
-      ],
-      "size": [
-        345,
-        350
       ],
       "flags": {},
       "order": 13,
@@ -593,56 +354,249 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 14
+          "link": 6
         },
         {
-          "name": "positive",
+          "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 15
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 16
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 17
+          "link": 7
         }
       ],
       "outputs": [
         {
-          "name": "LATENT",
-          "type": "LATENT",
+          "name": "GUIDER",
+          "type": "GUIDER",
           "links": [
-            18
+            10
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "KSamplerAdvanced"
+        "Node name for S&R": "BasicGuider"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "RandomNoise",
+      "title": "Fixed seed for VAE comparisons",
+      "pos": [
+        1060,
+        340
+      ],
+      "size": [
+        330,
+        100
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise"
       },
       "widgets_values": [
-        "disable",
-        0,
-        "fixed",
-        20,
-        3.5,
-        "euler",
-        "simple",
-        10,
-        20,
-        "disable"
+        42,
+        "fixed"
       ]
+    },
+    {
+      "id": 11,
+      "type": "KSamplerSelect",
+      "title": "Native base sampler",
+      "pos": [
+        1060,
+        475
+      ],
+      "size": [
+        330,
+        100
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            11
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "res_multistep"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "BasicScheduler",
+      "title": "20 base steps — not a distilled checkpoint",
+      "pos": [
+        1060,
+        615
+      ],
+      "size": [
+        325,
+        145
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            12
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicScheduler"
+      },
+      "widgets_values": [
+        "simple",
+        20,
+        1
+      ]
+    },
+    {
+      "id": 13,
+      "type": "SamplerCustomAdvanced",
+      "title": "Joint video + audio generation",
+      "pos": [
+        1450,
+        40
+      ],
+      "size": [
+        330,
+        200
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 9
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 10
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 11
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 12
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            14,
+            16
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 14,
+      "type": "VAEDecodeAudio",
+      "title": "Decode generated audio (original audio VAE)",
+      "pos": [
+        1450,
+        365
+      ],
+      "size": [
+        350,
+        90
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 14
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            19
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": []
     },
     {
       "id": 15,
       "type": "VAEDecode",
       "title": "Decode video with selected LightVAE",
       "pos": [
-        1820,
+        1860,
         40
       ],
       "size": [
@@ -650,18 +604,18 @@
         100
       ],
       "flags": {},
-      "order": 14,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 18
+          "link": 16
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 19
+          "link": 17
         }
       ],
       "outputs": [
@@ -669,7 +623,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            20
+            18
           ],
           "slot_index": 0
         }
@@ -684,7 +638,7 @@
       "type": "CreateVideo",
       "title": "Assemble MP4 frames / optional native audio",
       "pos": [
-        1820,
+        1860,
         190
       ],
       "size": [
@@ -692,18 +646,18 @@
         175
       ],
       "flags": {},
-      "order": 15,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 20
+          "link": 18
         },
         {
           "name": "audio",
           "type": "AUDIO",
-          "link": null
+          "link": 19
         }
       ],
       "outputs": [
@@ -711,7 +665,7 @@
           "name": "VIDEO",
           "type": "VIDEO",
           "links": [
-            21
+            20
           ],
           "slot_index": 0
         }
@@ -720,7 +674,7 @@
         "Node name for S&R": "CreateVideo"
       },
       "widgets_values": [
-        16,
+        24,
         "auto",
         "sRGB",
         "none"
@@ -731,7 +685,7 @@
       "type": "SaveVideo",
       "title": "Save generated MP4",
       "pos": [
-        1820,
+        1860,
         445
       ],
       "size": [
@@ -739,13 +693,13 @@
         350
       ],
       "flags": {},
-      "order": 16,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
           "name": "video",
           "type": "VIDEO",
-          "link": 21
+          "link": 20
         }
       ],
       "outputs": [
@@ -760,23 +714,95 @@
         "Node name for S&R": "SaveVideo"
       },
       "widgets_values": [
-        "LightVAE/wan22_14b_i2v_lightvae",
+        "LightVAE/h3_fl2v_lightvae",
         "auto",
         "auto"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "VAELoader",
+      "title": "Original H3 VIDEO VAE — native settings / fallback",
+      "pos": [
+        20,
+        510
+      ],
+      "size": [
+        410,
+        80
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            21,
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "minimax_h3_video_vae_fp16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "LoadImage",
+      "title": "Last frame — original VAE encoding",
+      "pos": [
+        20,
+        1080
+      ],
+      "size": [
+        410,
+        310
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "last_frame.png",
+        "image"
       ]
     }
   ],
   "links": [
     [
       1,
-      4,
-      0,
-      5,
-      0,
-      "VAE"
-    ],
-    [
-      2,
       3,
       0,
       6,
@@ -784,135 +810,119 @@
       "CLIP"
     ],
     [
-      3,
-      3,
-      0,
-      7,
-      0,
-      "CLIP"
-    ],
-    [
-      4,
       2,
+      18,
       0,
-      8,
-      0,
-      "MODEL"
-    ],
-    [
-      5,
       6,
-      0,
-      9,
-      0,
-      "CONDITIONING"
-    ],
-    [
-      6,
-      7,
-      0,
-      9,
       1,
-      "CONDITIONING"
-    ],
-    [
-      7,
-      5,
-      0,
-      9,
-      2,
       "VAE"
     ],
     [
-      8,
-      10,
-      0,
-      9,
       4,
+      7,
+      0,
+      6,
+      2,
       "IMAGE"
     ],
     [
-      9,
+      5,
+      2,
+      0,
       8,
       0,
-      11,
+      "MODEL"
+    ],
+    [
+      6,
+      8,
+      0,
+      9,
       0,
       "MODEL"
+    ],
+    [
+      7,
+      6,
+      0,
+      9,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      8,
+      0,
+      12,
+      0,
+      "MODEL"
+    ],
+    [
+      9,
+      10,
+      0,
+      13,
+      0,
+      "NOISE"
     ],
     [
       10,
       9,
       0,
-      11,
+      13,
       1,
-      "CONDITIONING"
+      "GUIDER"
     ],
     [
       11,
-      9,
-      1,
       11,
+      0,
+      13,
       2,
-      "CONDITIONING"
+      "SAMPLER"
     ],
     [
       12,
-      9,
-      2,
-      11,
+      12,
+      0,
+      13,
       3,
+      "SIGMAS"
+    ],
+    [
+      13,
+      6,
+      1,
+      13,
+      4,
       "LATENT"
     ],
     [
-      13,
-      12,
-      0,
-      13,
-      0,
-      "MODEL"
-    ],
-    [
       14,
       13,
       0,
       14,
       0,
-      "MODEL"
+      "LATENT"
     ],
     [
       15,
-      9,
+      4,
       0,
       14,
       1,
-      "CONDITIONING"
+      "VAE"
     ],
     [
       16,
-      9,
-      1,
-      14,
-      2,
-      "CONDITIONING"
+      13,
+      0,
+      15,
+      0,
+      "LATENT"
     ],
     [
       17,
-      11,
-      0,
-      14,
-      3,
-      "LATENT"
-    ],
-    [
-      18,
-      14,
-      0,
-      15,
-      0,
-      "LATENT"
-    ],
-    [
-      19,
       5,
       0,
       15,
@@ -920,7 +930,7 @@
       "VAE"
     ],
     [
-      20,
+      18,
       15,
       0,
       16,
@@ -928,12 +938,36 @@
       "IMAGE"
     ],
     [
-      21,
+      19,
+      14,
+      0,
+      16,
+      1,
+      "AUDIO"
+    ],
+    [
+      20,
       16,
       0,
       17,
       0,
       "VIDEO"
+    ],
+    [
+      21,
+      18,
+      0,
+      5,
+      0,
+      "VAE"
+    ],
+    [
+      22,
+      19,
+      0,
+      6,
+      3,
+      "IMAGE"
     ]
   ],
   "groups": [],
@@ -946,7 +980,7 @@
         340
       ]
     },
-    "lightvae_recipe": "wan22_14b_i2v_lightvae"
+    "lightvae_recipe": "h3_ref_image_lightvae"
   },
   "version": 0.4
 }

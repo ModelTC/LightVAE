@@ -1,6 +1,6 @@
 {
-  "last_node_id": 17,
-  "last_link_id": 20,
+  "last_node_id": 18,
+  "last_link_id": 21,
   "nodes": [
     {
       "id": 1,
@@ -12,7 +12,7 @@
       ],
       "size": [
         950,
-        280
+        230
       ],
       "flags": {},
       "order": 0,
@@ -23,7 +23,7 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "## H3 reference-to-video + generated stereo audio\nUses the **ref2va** diffusion checkpoint, not fl2va. 1344x768, 124 frames, 24 FPS, 20 base steps (no turbo LoRA).\n\nLightVAE encoder and decoder are selected independently. For an original component, add a matching original video Load VAE, connect base_vae and set that component to none. The audio VAE stays original.\n\nPrompt tags start at 1: <Picture 1> / <Video 1> / <Audio 1>. Socket suffixes start at 0. A reference video's connected soundtrack occupies an Audio index before standalone audio.\n\nUpload a reference image; connect more images to the growing reference inputs if needed."
+        "## H3 Ref + native stereo audio\nref2va DiT; 1344x768, 124 frames, 24 FPS, 20 base steps. No turbo LoRA.\n\nLoad H3 LightVAE independently selects the video encoder and decoder. Set either to none for the connected original component. Device and precision follow ComfyUI. Audio VAE stays original.\n\nReference tags start at 1: <Picture 1>, <Video 1>, <Audio 1>. Socket suffixes start at 0. Upload your reference; video inputs must be 24 FPS."
       ]
     },
     {
@@ -153,23 +153,23 @@
     {
       "id": 5,
       "type": "LightVAELoader",
-      "title": "LightVAE: choose Pro / Lite (none = original via base_vae)",
+      "title": "H3 LightVAE — encoder / decoder (none = original)",
       "pos": [
         470,
         20
       ],
       "size": [
         510,
-        225
+        120
       ],
       "flags": {},
-      "order": 4,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
           "name": "base_vae",
           "type": "VAE",
-          "link": null
+          "link": 21
         }
       ],
       "outputs": [
@@ -187,11 +187,8 @@
         "Node name for S&R": "LightVAELoader"
       },
       "widgets_values": [
-        "lightvae-lite-h3-decoder-comfy.safetensors",
-        "lightvae-lite-h3-encoder-comfy.safetensors",
-        "auto",
-        "auto",
-        "auto"
+        "lightvae-lite-h3-decoder.safetensors",
+        "lightvae-lite-h3-encoder.safetensors"
       ]
     },
     {
@@ -207,7 +204,7 @@
         410
       ],
       "flags": {},
-      "order": 5,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
@@ -291,14 +288,14 @@
       "title": "Reference image = <Picture 1>",
       "pos": [
         20,
-        535
+        690
       ],
       "size": [
         360,
         320
       ],
       "flags": {},
-      "order": 6,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -338,7 +335,7 @@
         110
       ],
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -362,8 +359,8 @@
         "Node name for S&R": "MiniMaxH3SigmaShift"
       },
       "widgets_values": [
-        12.0,
-        3.0
+        12,
+        3
       ]
     },
     {
@@ -379,7 +376,7 @@
         100
       ],
       "flags": {},
-      "order": 8,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -421,7 +418,7 @@
         100
       ],
       "flags": {},
-      "order": 9,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -455,7 +452,7 @@
         100
       ],
       "flags": {},
-      "order": 10,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -488,7 +485,7 @@
         145
       ],
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -513,7 +510,7 @@
       "widgets_values": [
         "simple",
         20,
-        1.0
+        1
       ]
     },
     {
@@ -529,7 +526,7 @@
         200
       ],
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -593,7 +590,7 @@
         90
       ],
       "flags": {},
-      "order": 13,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -635,7 +632,7 @@
         100
       ],
       "flags": {},
-      "order": 14,
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
@@ -677,7 +674,7 @@
         175
       ],
       "flags": {},
-      "order": 15,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -724,7 +721,7 @@
         350
       ],
       "flags": {},
-      "order": 16,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -748,6 +745,46 @@
         "LightVAE/h3_ref_image_lightvae",
         "auto",
         "auto"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "VAELoader",
+      "title": "Original H3 VIDEO VAE — native settings / fallback",
+      "pos": [
+        20,
+        510
+      ],
+      "size": [
+        410,
+        80
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            21
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "minimax_h3_video_vae_fp16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
       ]
     }
   ],
@@ -911,6 +948,14 @@
       17,
       0,
       "VIDEO"
+    ],
+    [
+      21,
+      18,
+      0,
+      5,
+      0,
+      "VAE"
     ]
   ],
   "groups": [],

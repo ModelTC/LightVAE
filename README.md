@@ -28,11 +28,11 @@ This repository provides **video reconstruction** and **decoder speed benchmarks
 To use LightVAE in a video generation pipeline, see
 [LightX2V](https://github.com/ModelTC/LightX2V).
 
-For **ComfyUI**, see the [custom node, wiring examples and measured results](comfyui/README.md)
+For **ComfyUI**, see the [H3 custom node and installation guide](comfyui/README.md)
 and the [ready-to-use video generation workflows](comfyui/workflows/README.md).
-The node keeps Wan's temporal low-rank factors and supports the standard `VAE`
-encode/decode interface. Triton is optional: compatible NVIDIA GPUs use fused
-kernels; other supported PyTorch devices use a factored PyTorch path.
+The H3-only node reuses ComfyUI's native VAE with block-pruned weights:
+replace just the decoder for FL2V, or the encoder and/or decoder for reference tasks.
+No extra LightVAE package installation, TLR or custom Triton kernels are needed.
 
 ![Architecture comparison of Wan2.1 VAE, Turbo-VAED, Flash-VAED, and LightVAE](assets/architecture.png)
 
@@ -87,9 +87,9 @@ python -m pip install -r requirements.txt
 ```
 
 This installs the shared **`lightvae`** package and the reconstruction/download dependencies.
-For model-only or ComfyUI usage, use `python -m pip install .`; for local development,
-use `python -m pip install -e ".[cli]"`. The CLI scripts and ComfyUI node share the same
-model definitions and kernels—there is no separate ComfyUI runtime copy.
+For model-only usage, use `python -m pip install .`; for local development,
+use `python -m pip install -e ".[cli]"`. The [ComfyUI node](comfyui/README.md#install)
+uses native H3 components and does not require this package installation.
 
 ```python
 from lightvae.wan21_lightvae_decoder import Decoder
@@ -98,8 +98,8 @@ from lightvae.h3_lightvae_encoder import Encoder
 
 Triton is optional (usually included with NVIDIA Linux PyTorch). For a compatible
 Linux CUDA environment, `python -m pip install "triton>=3.4"` enables fused Wan
-kernels. H3 uses PyTorch operations. See the [GPU support matrix](comfyui/README.md#gpu-support)
-for backend selection, tested hardware and limitations.
+kernels. H3 uses PyTorch operations; its [ComfyUI integration](comfyui/README.md)
+uses the native ComfyUI H3 backend instead of these Wan kernels.
 
 
 ## 🤗 Model Weights
