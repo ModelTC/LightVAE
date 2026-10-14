@@ -63,10 +63,3 @@ For **FL2V**, leave `encoder = none`. Its workflow connects the original VAE
 directly to `MiniMaxH3ImageToVideo`, so keyframe encoding cannot change accidentally.
 For **Ref**, the selected VAE feeds both `MiniMaxH3ReferenceToVideo` and `VAE Decode`.
 The separate **audio VAE is never replaced**.
-
-## GPU support
-
-Precision and device follow the connected original VAE and ComfyUI's settings.
-There are no extra backend, precision or device widgets. This node introduces
-no Hopper-only kernels; hardware support is the same as native ComfyUI H3.
-CPU can be used for debugging, but H3 generation requires substantial compute and memory.
