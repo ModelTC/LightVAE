@@ -7,6 +7,8 @@ from torch import nn
 from safetensors import safe_open
 
 import comfy.sd
+import comfy.ops
+import comfy.utils
 from comfy import model_management
 from comfy.ldm.minimax.vae import MiniMaxH3VideoVAE
 
@@ -78,13 +80,17 @@ class LightVAE(comfy.sd.VAE):
         self.base_vae = base_vae
         self.use_decoder = decoder_path is not None
         self.use_encoder = encoder_path is not None
-        model = MiniMaxH3VideoVAE()
         state = {}
+        num_layers = 36
         if self.use_decoder:
             weights, kept = load_component(decoder_path, "decoder")
-            model.decoder.transformer_blocks = nn.ModuleList(model.decoder.transformer_blocks[:len(kept)])
+            num_layers = len(kept)
             state.update(weights)
-        else:
+        quantization = comfy.utils.detect_layer_quantization(state, "")
+        operations = (comfy.ops.mixed_precision_ops(quantization, self.vae_dtype)
+                      if quantization is not None else comfy.ops.disable_weight_init)
+        model = MiniMaxH3VideoVAE(operations=operations, num_layers=num_layers)
+        if not self.use_decoder:
             model.decoder = model.post_quant_conv = None
         if self.use_encoder:
             weights, kept = load_component(encoder_path, "encoder")

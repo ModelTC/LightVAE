@@ -25,12 +25,16 @@ Place these ComfyUI-compatible checkpoints under `ComfyUI/models/`:
 | `minimax_h3_video_vae_fp16.safetensors` | `vae/` | Original video VAE / fallback |
 | `minimax_h3_audio_vae_fp32.safetensors` | `vae/` | Original audio VAE |
 | `lightvae-lite-h3-decoder.safetensors` | `vae/LightVAE/` | Lite decoding |
+| `lightvae-lite-h3-decoder-int8-convrot.safetensors` | `vae/LightVAE/` | Optional ConvRot-INT8 Lite decoding |
 | `lightvae-lite-h3-encoder.safetensors` | `vae/LightVAE/` | Optional Lite reference encoding |
 
 Get the base models from [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3)
 and our components from [lightx2v/LightVAE](https://huggingface.co/lightx2v/LightVAE).
 Download only the DiT for the task you use; the BF16 DiT and 32B text encoder are large.
 Existing compatible quantized DiT/text-encoder files can be selected instead.
+
+To use the INT8 Lite decoder, select its file in **Load H3 LightVAE → decoder**;
+the same workflows and encoder choices apply. See [INT8 setup](../README.md#convrot-int8-decoder).
 
 ## FL2V
 

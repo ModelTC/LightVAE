@@ -60,6 +60,7 @@ The **Load H3 LightVAE** node reuses ComfyUI’s native H3 VAE. No LightVAE pack
 - **FL2V:** replace the decoder; keep original first/last-frame encoding.
 - **REF2V:** replace the encoder, decoder, or both independently.
 - **`none`:** use the corresponding original component. Audio stays unchanged.
+- **ConvRot-INT8:** optional quantized Lite decoder; see [download and setup](comfyui/README.md#convrot-int8-decoder).
 
 > Use the [installer](comfyui/README.md#install)—do not clone the entire repository directly into `custom_nodes`. Connect the original H3 video VAE to **`base_vae`**, then select Lite components through **Load H3 LightVAE**, not the standard Load VAE node.
 
@@ -93,6 +94,9 @@ Download LightVAE checkpoints:
 ```bash
 hf download lightx2v/LightVAE --local-dir weights/LightVAE
 ```
+
+Use standard, non-INT8 checkpoints with `infer.py` and `benchmark.py`.
+`lightvae-lite-h3-decoder-int8-convrot.safetensors` is for the ComfyUI node only.
 
 Download only the original VAE you need for encoding or baseline comparison:
 

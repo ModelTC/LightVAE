@@ -9,24 +9,33 @@ No `pip install lightvae`, weight export, sidecar JSON or custom Triton kernels 
 
 ## Install
 
-From your LightVAE checkout, run with the Python that starts ComfyUI:
+Update ComfyUI to a version with native MiniMax-H3 support. Run with the Python
+environment that starts ComfyUI:
 
 ```bash
-python comfyui/install.py --comfy-root /path/to/ComfyUI
+cd /path/to/ComfyUI
+git clone https://github.com/ModelTC/LightVAE.git LightVAE
+python LightVAE/comfyui/install.py --comfy-root .
 
+python -m pip install huggingface_hub
 hf download lightx2v/LightVAE \
   lightvae-lite-h3-decoder.safetensors \
   lightvae-lite-h3-encoder.safetensors \
-  --local-dir /path/to/ComfyUI/models/vae/LightVAE
+  --local-dir models/vae/LightVAE
 ```
 
+Already cloned? Run `git -C LightVAE pull`, then rerun the installer.
+It creates `custom_nodes/ComfyUI-LightVAE/` automatically; **do not clone the
+entire repository directly into `custom_nodes`**.
+
 Restart ComfyUI and search for **Load H3 LightVAE**. The original H3 video VAE
-must be connected to `base_vae`. If you do not have it yet:
+must be connected to `base_vae`. Select Lite components in this node, not the
+standard **Load VAE** node. If you do not have the original video VAE yet:
 
 ```bash
 hf download Comfy-Org/MiniMax-H3 \
   vae/minimax_h3_video_vae_fp16.safetensors \
-  --local-dir /path/to/ComfyUI/models
+  --local-dir models
 ```
 
 The standard H3 files above and our previous `*-h3-*-comfy.safetensors` exports
@@ -63,3 +72,38 @@ For **FL2V**, leave `encoder = none`. Its workflow connects the original VAE
 directly to `MiniMaxH3ImageToVideo`, so keyframe encoding cannot change accidentally.
 For **Ref**, the selected VAE feeds both `MiniMaxH3ReferenceToVideo` and `VAE Decode`.
 The separate **audio VAE is never replaced**.
+
+## ConvRot-INT8 decoder
+
+An optional quantized Lite decoder uses ComfyUI's native ConvRot-INT8 operations.
+Update this checkout and rerun the installer before using it.
+
+```bash
+hf download lightx2v/LightVAE \
+  lightvae-lite-h3-decoder-int8-convrot.safetensors \
+  --local-dir /path/to/ComfyUI/models/vae/LightVAE
+```
+
+Restart ComfyUI and select that file in **Load H3 LightVAE → decoder**.
+Keep `base_vae` connected; encoder selection, audio VAE and workflow connections
+stay unchanged. This INT8 file is not supported by the standalone `infer.py` or
+`benchmark.py` scripts.
+
+For native NVIDIA CUDA acceleration, use a **CUDA 13.0+ PyTorch build** and a
+compatible driver. Older builds may use fallback operations; performance depends
+on the GPU and backend.
+
+<details>
+<summary>Convert a standard Lite decoder yourself</summary>
+
+Run from the LightVAE repository directory in your ComfyUI environment:
+
+```bash
+PYTHONPATH=/path/to/ComfyUI python -m comfyui.convert_h3_int8 \
+  --input /path/to/lightvae-lite-h3-decoder.safetensors \
+  --output /path/to/ComfyUI/models/vae/LightVAE/lightvae-lite-h3-decoder-int8-convrot.safetensors
+```
+
+The converter writes a new checkpoint and leaves the original weights unchanged.
+
+</details>
