@@ -242,3 +242,19 @@ CUDA_VISIBLE_DEVICES=0 python benchmark.py \
 ```
 
 **Outputs:** `summary.csv`, `summary.json`, and per-decoder logs.
+
+## 📚 Citation
+
+If you find LightVAE useful, please cite our paper:
+
+```bibtex
+@misc{gu2026lightvae,
+  title={LightVAE: Towards Compact and Efficient Video Autoencoders},
+  author={Shiqiao Gu and Yang Yong and Fengjun Zhong and Ruihao Gong and Chengtao Lv and Xiangyu Fan and Lei Yang and Xianglong Liu},
+  year={2026},
+  eprint={2610.14726},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.14726}
+}
+```
