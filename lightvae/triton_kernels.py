@@ -1,4 +1,4 @@
-"""Fused normalization and temporal history kernels for Wan LightVAE."""
+"""Fused BF16 normalization and temporal-history kernels for LightVAE."""
 
 import torch
 import triton
@@ -130,5 +130,64 @@ def fused_history_up(p, weight, cache):
             p, weight, old, out, co, rank, time, height, width, *p.stride(), *old.stride(),
             *weight.stride()[:2], cache is not None, 32, 64, 32,
             num_warps=4, enable_fp_fusion=False,
+        )
+    return out
+
+
+@triton.jit
+def _cross_arch_history(P, A, OUT, CO: tl.constexpr, R: tl.constexpr,
+                        T: tl.constexpr, H: tl.constexpr, W: tl.constexpr,
+                        P0: tl.constexpr, P1: tl.constexpr, P2: tl.constexpr,
+                        P3: tl.constexpr, P4: tl.constexpr,
+                        A0: tl.constexpr, A1: tl.constexpr,
+                        CURRENT: tl.constexpr, I: tl.constexpr, J: tl.constexpr,
+                        BM: tl.constexpr, BN: tl.constexpr, BK: tl.constexpr):
+    co = tl.program_id(0) * BM + tl.arange(0, BM)
+    spatial = tl.program_id(1) * BN + tl.arange(0, BN)
+    bt = tl.program_id(2)
+    # High-resolution temporal branches can exceed 2**31 elements even at B=1.
+    # Keep the original index arithmetic for smaller tensors.
+    if P0 >= 2147483648:
+        co = co.to(tl.int64)
+        spatial = spatial.to(tl.int64)
+        bt = bt.to(tl.int64)
+    batch, time = bt // T, bt % T
+    base_time = time + CURRENT
+    i_time, j_time = time + I, time + J
+    pbase = batch * P0
+    base_spatial = (spatial // W) * P3 + (spatial % W) * P4
+    rank = tl.arange(0, BK)
+    acc = tl.zeros((BM, BN), tl.float32)
+    for start in range(tl.cdiv(R, BK)):
+        k = start * BK + rank
+        mask = (k[:, None] < R) & (spatial[None, :] < H * W)
+        left = tl.load(P + pbase + i_time * P1 + (CO + k[:, None]) * P2
+                       + base_spatial[None, :], mask, other=0)
+        right = tl.load(P + pbase + j_time * P1 + (CO + R + k[:, None]) * P2
+                        + base_spatial[None, :], mask, other=0)
+        history = (left.to(tl.float32) + right.to(tl.float32)).to(tl.bfloat16)
+        weight = tl.load(A + co[:, None] * A0 + k[None, :] * A1,
+                         (co[:, None] < CO) & (k[None, :] < R), other=0)
+        acc = tl.dot(weight, history, acc)
+    mask = (co[:, None] < CO) & (spatial[None, :] < H * W)
+    base = tl.load(P + pbase + base_time * P1 + co[:, None] * P2
+                   + base_spatial[None, :], mask, other=0)
+    output = acc.to(tl.bfloat16).to(tl.float32) + base.to(tl.float32)
+    tl.store(OUT + (bt * CO + co[:, None]) * (H * W) + spatial[None, :], output, mask)
+
+
+def fused_tlr_history(p, weight, current_index, other_indices):
+    """Fuse history-factor addition, pointwise up projection, and spatial skip."""
+    batch, input_time, _, height, width = p.shape
+    output_time = input_time - 2
+    co, rank = weight.shape[:2]
+    out = torch.empty((batch, output_time, co, height, width),
+                      device=p.device, dtype=p.dtype)
+    with torch.cuda.device(p.device):
+        _cross_arch_history[(triton.cdiv(co, 32), triton.cdiv(height * width, 64),
+                             batch * output_time)](
+            p, weight, out, co, rank, output_time, height, width, *p.stride(),
+            *weight.stride()[:2], current_index, other_indices[0], other_indices[1],
+            32, 64, 32, num_warps=4, enable_fp_fusion=False,
         )
     return out

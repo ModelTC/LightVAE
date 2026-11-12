@@ -166,7 +166,11 @@ class Decoder(nn.Module):
             return unframes(layer.resample(frames(x)), batch, x.shape[2])
         return layer(x)
 
-    def forward(self, z):
+    def new_cache(self):
+        """Create the causal history for one streaming decode request."""
+        return {"history": [None] * self.slots, "frames": 0}
+
+    def forward(self, z, *, cache=None):
         if z.ndim != 5 or z.shape[1] != self.latent_channels or min(z.shape) < 1:
             raise ValueError(f"Expected nonempty B,{self.latent_channels},T,H,W latent")
         component, decoder = self.component, self.component.decoder
@@ -175,7 +179,8 @@ class Decoder(nn.Module):
             std = component.latents_std.view(1, -1, 1, 1, 1)
             z = z / std.reciprocal() + mean
         projected = component.conv2(z)
-        history, outputs = [None] * self.slots, []
+        cache = self.new_cache() if cache is None else cache
+        history, outputs = cache["history"], []
         for time in range(projected.shape[2]):
             slot = [0]
             x = self._apply_layer(decoder.conv1, projected[:, :, time:time + 1], history, slot)
@@ -190,8 +195,9 @@ class Decoder(nn.Module):
                     for layer in stage.upsamples:
                         x = self._apply_layer(layer, x, history, slot)
                     if stage.avg_shortcut is not None:
-                        x = x + stage.avg_shortcut(shortcut, first_chunk=(time == 0))
+                        x = x + stage.avg_shortcut(shortcut, first_chunk=(cache["frames"] == 0 and time == 0))
             for layer in decoder.head:
                 x = self._apply_layer(layer, x, history, slot)
             outputs.append(x if self.family == "wan21" else wan22.unpatchify(x, 2))
+        cache["frames"] += projected.shape[2]
         return torch.cat(outputs, dim=2)

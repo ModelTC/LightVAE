@@ -1,0 +1,1608 @@
+{
+  "schema_version": 1,
+  "family": "hunyuanvideo15",
+  "config": {
+    "_class_name": "AutoencoderKLConv3D",
+    "_diffusers_version": "0.35.0",
+    "block_out_channels": [
+      128,
+      256,
+      512,
+      1024,
+      1024
+    ],
+    "downsample_match_channel": true,
+    "ffactor_spatial": 16,
+    "ffactor_temporal": 4,
+    "in_channels": 3,
+    "latent_channels": 32,
+    "layers_per_block": 2,
+    "out_channels": 3,
+    "sample_size": 256,
+    "sample_tsize": 64,
+    "scaling_factor": 1.03682,
+    "shift_factor": null,
+    "upsample_match_channel": true
+  },
+  "variants": {
+    "0.4": {
+      "eta": 0.4,
+      "step": 3000,
+      "tlr_records": [
+        {
+          "path": "mid.block_1.conv1.conv",
+          "rank": 311,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40027573811748557,
+          "folded": false
+        },
+        {
+          "path": "mid.block_1.conv2.conv",
+          "rank": 299,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4000339051407755,
+          "folded": false
+        },
+        {
+          "path": "mid.block_2.conv1.conv",
+          "rank": 320,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.400479588349021,
+          "folded": false
+        },
+        {
+          "path": "mid.block_2.conv2.conv",
+          "rank": 296,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4005184200171878,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.0.conv1.conv",
+          "rank": 314,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40021410301988036,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.0.conv2.conv",
+          "rank": 295,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4007852191804037,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.1.conv1.conv",
+          "rank": 318,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4005483533158321,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.1.conv2.conv",
+          "rank": 301,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40016618759270506,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.2.conv1.conv",
+          "rank": 305,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4002122652638924,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.2.conv2.conv",
+          "rank": 304,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40034706817158694,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.0.conv1.conv",
+          "rank": 313,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40056570418249177,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.0.conv2.conv",
+          "rank": 312,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4002185332285396,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.1.conv1.conv",
+          "rank": 306,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40038703241603596,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.1.conv2.conv",
+          "rank": 310,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4009229914513417,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.2.conv1.conv",
+          "rank": 304,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4005783867370108,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.2.conv2.conv",
+          "rank": 314,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40070474369463643,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.0.conv1.conv",
+          "rank": 162,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4015722491066482,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.0.conv2.conv",
+          "rank": 160,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4019739672098089,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.1.conv1.conv",
+          "rank": 161,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40154675009899976,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.1.conv2.conv",
+          "rank": 158,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4001948455414427,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.2.conv1.conv",
+          "rank": 162,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4010361494896942,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.2.conv2.conv",
+          "rank": 163,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4011437689595056,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        }
+      ],
+      "checkpoint_sha256": "3c3dc7a6e57c5c5a0be7514fa102e89c2b2b355e6cfad3a766d812c8832336af"
+    },
+    "0.6": {
+      "eta": 0.6,
+      "step": 3500,
+      "tlr_records": [
+        {
+          "path": "mid.block_1.conv1.conv",
+          "rank": 524,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6002329001316417,
+          "folded": false
+        },
+        {
+          "path": "mid.block_1.conv2.conv",
+          "rank": 513,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6002044323572749,
+          "folded": false
+        },
+        {
+          "path": "mid.block_2.conv1.conv",
+          "rank": 530,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6001512204986749,
+          "folded": false
+        },
+        {
+          "path": "mid.block_2.conv2.conv",
+          "rank": 511,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.600185197776512,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.0.conv1.conv",
+          "rank": 526,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6007946800089665,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.0.conv2.conv",
+          "rank": 509,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6001306988493735,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.1.conv1.conv",
+          "rank": 528,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6003049680221291,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.1.conv2.conv",
+          "rank": 513,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6007366308174918,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.2.conv1.conv",
+          "rank": 518,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6005607488409326,
+          "folded": false
+        },
+        {
+          "path": "up.0.block.2.conv2.conv",
+          "rank": 514,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6004160045125914,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.0.conv1.conv",
+          "rank": 523,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.600724573361247,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.0.conv2.conv",
+          "rank": 521,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6004247413167907,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.1.conv1.conv",
+          "rank": 515,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6005036733235884,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.1.conv2.conv",
+          "rank": 519,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6008048416251999,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.2.conv1.conv",
+          "rank": 511,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6000530844726686,
+          "folded": false
+        },
+        {
+          "path": "up.1.block.2.conv2.conv",
+          "rank": 522,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6001894484448603,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.0.conv1.conv",
+          "rank": 266,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6013920779717765,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.0.conv2.conv",
+          "rank": 264,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6007495909294289,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.1.conv1.conv",
+          "rank": 264,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6012637563688215,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.1.conv2.conv",
+          "rank": 263,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.600914487386251,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.2.conv1.conv",
+          "rank": 264,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6007120981683104,
+          "folded": false
+        },
+        {
+          "path": "up.2.block.2.conv2.conv",
+          "rank": 267,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 2,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6012470047449673,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.3.block.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up.4.block.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 2,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            0,
+            0
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        }
+      ],
+      "checkpoint_sha256": "8acc5d406d78f489bfff19352e47133b821d4de9d15b1fdbd66b701493d8914c"
+    }
+  },
+  "description": "Decoder architecture and measured-checkpoint TLR ranks; no model tensors."
+}

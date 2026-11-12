@@ -25,4 +25,4 @@ include = ["lightvae", "lightvae.*"]
 namespaces = false
 
 [tool.setuptools.package-data]
-lightvae = ["config/*.json"]
+lightvae = ["config/*.json", "config/cross_arch_benchmark/*.json"]
