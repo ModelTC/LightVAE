@@ -36,7 +36,8 @@ if triton is not None:
                   TENSOR_BIAS: tl.constexpr, BIAS: tl.constexpr,
                   EPS: tl.constexpr, SCALE: tl.constexpr,
                   BC: tl.constexpr, BS: tl.constexpr):
-        batch = tl.program_id(1)
+        # Full-resolution video activations can have strides beyond int32.
+        batch = tl.program_id(1).to(tl.int64)
         position = tl.program_id(0) * BS + tl.arange(0, BS)
         channel = tl.arange(0, BC)
         position = position.to(tl.int64)
