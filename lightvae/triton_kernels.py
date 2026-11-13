@@ -52,7 +52,10 @@ def _norm(X, G, B, Y, C: tl.constexpr, T: tl.constexpr, H: tl.constexpr,
     value = (value + bias[:, None]).to(dtype).to(tl.float32)
     if SILU:
         value = value / (1. + tl.exp(-value))
-    out = (batch * C + ch[:, None]) * (T * H * W) + s[None, :]
+    # TLR consumes individual NCHW frames. Write that layout directly so
+    # frames(x) remains a view instead of copying the normalized activation.
+    out = (((batch * T + s[None, :] // (H * W)) * C + ch[:, None]) * (H * W)
+           + s[None, :] % (H * W))
     tl.store(Y + out, value, mask)
 
 
@@ -60,7 +63,8 @@ def rms_silu(x, gamma, bias, scale, silu):
     n, c = x.shape[:2]
     t, h, w = (1, *x.shape[2:]) if x.ndim == 4 else x.shape[2:]
     strides = (x.stride(0), x.stride(1), 0, *x.stride()[2:]) if x.ndim == 4 else x.stride()
-    out = torch.empty(x.shape, device=x.device, dtype=x.dtype)
+    out = (torch.empty((n, t, c, h, w), device=x.device, dtype=x.dtype).permute(0, 2, 1, 3, 4)
+           if x.ndim == 5 else torch.empty(x.shape, device=x.device, dtype=x.dtype))
     with torch.cuda.device(x.device):
         # Spatial tiles use grid.x; grid.y's 65535 limit is too small for 720p.
         _norm[(triton.cdiv(t * h * w, 32), n)](
@@ -125,10 +129,13 @@ def fused_history_up(p, weight, cache):
     co, rank = weight.shape[:2]
     out = torch.empty((batch, time, co, height, width), device=p.device, dtype=p.dtype)
     old = p if cache is None else cache
+    # Wider channel tiles reuse history loads across more output channels.
+    # Retain the K tile/reduction order and the existing path on other GPUs.
+    bm = 128 if co >= 128 and torch.cuda.get_device_capability(p.device)[0] == 12 else 32
     with torch.cuda.device(p.device):
-        _history_up[(triton.cdiv(co, 32), triton.cdiv(height * width, 64), batch * time)](
+        _history_up[(triton.cdiv(co, bm), triton.cdiv(height * width, 64), batch * time)](
             p, weight, old, out, co, rank, time, height, width, *p.stride(), *old.stride(),
-            *weight.stride()[:2], cache is not None, 32, 64, 32,
+            *weight.stride()[:2], cache is not None, bm, 64, 32,
             num_warps=4, enable_fp_fusion=False,
         )
     return out
