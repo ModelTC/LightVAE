@@ -89,6 +89,16 @@ from lightvae.h3_lightvae_encoder import Encoder
 
 Triton is optional for fused Wan kernels and is usually included with NVIDIA Linux PyTorch. H3 uses PyTorch operations; the ComfyUI node uses ComfyUI’s native H3 backend.
 
+## Training
+
+The [training guide](train/README.md) covers Wan2.1/Wan2.2 block search, LoRA
+merging, TLR initialization and recovery, plus MiniMax-H3 encoder/decoder recovery.
+Configurations and the independent training package live in `train/`.
+
+```bash
+python -m pip install -e './train'
+```
+
 ## 🤗 Weights
 
 Download LightVAE checkpoints:

@@ -1,0 +1,46 @@
+{
+  "family": "wan22",
+  "seed": 42,
+  "precision": "bf16",
+  "steps": 1000,
+  "geometry": {
+    "frames": 17,
+    "height": 256,
+    "width": 256
+  },
+  "search": {
+    "grouping": "stage",
+    "keep_per_group": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "gate_scale": 100
+  },
+  "temperature": {
+    "start": 4.0,
+    "end": 0.4
+  },
+  "gate_ema_decay": 0.99,
+  "optimizer": {
+    "lora_lr": 0.0001,
+    "gate_lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "weight_decay": 0.0
+  },
+  "loss": {
+    "l1": 1.0,
+    "perceptual": 0.05,
+    "lpips_frames": 4
+  },
+  "max_grad_norm": 1.0,
+  "evaluate_every": 100,
+  "save_every": 100
+}

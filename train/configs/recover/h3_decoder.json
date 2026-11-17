@@ -1,0 +1,114 @@
+{
+  "train_component": "decoder",
+  "seed": 2026,
+  "precision": "fp32",
+  "steps": 5000,
+  "accumulation_steps": 4,
+  "learning_rate": 1e-05,
+  "min_learning_rate": 1e-06,
+  "warmup_steps": 50,
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "weight_decay": 0.01,
+    "eps": 1e-08
+  },
+  "max_grad_norm": 1.0,
+  "ema_decay": 0.999,
+  "eval_every": 100,
+  "save_every": 100,
+  "save_total_limit": 2,
+  "eval_lpips_net": "alex",
+  "train_geometry": {
+    "frames": 17,
+    "height": 256,
+    "width": 256
+  },
+  "val_geometry": {
+    "frames": 17,
+    "height": 256,
+    "width": 256
+  },
+  "loss": {
+    "l1": 1.0,
+    "lpips": 0.8,
+    "guided_feature": 0.05,
+    "gan": 0.05,
+    "encoder_kl": 0.0,
+    "encoder_feature": 0.0
+  },
+  "gan": {
+    "enabled": true,
+    "spatial_compression_ratio": 16,
+    "seed": 2026,
+    "crop_specs": [
+      {
+        "crop_size": 256,
+        "max_frames": 32,
+        "weight": 0.75
+      },
+      {
+        "crop_size": 384,
+        "max_frames": 32,
+        "weight": 0.25
+      }
+    ],
+    "correction_scale": 0.05,
+    "correction_clamp": 4.0,
+    "discriminator_warmup_iters": 100,
+    "generator_ramp_iters": 300,
+    "max_grad_norm": 1.0,
+    "discriminator": {
+      "condition_channels": 8,
+      "base_channels": 32,
+      "channel_multipliers": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "temporal_strides": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "group_norm_groups": 16,
+      "spectral_normalization": true,
+      "gradient_checkpointing": true
+    },
+    "frame_discriminator": {
+      "enabled": true,
+      "weight": 1.0,
+      "condition_channels": 24,
+      "base_channels": 64,
+      "channel_multipliers": [
+        1,
+        2,
+        4,
+        8,
+        8
+      ],
+      "spatial_strides": [
+        2,
+        2,
+        2,
+        1,
+        1
+      ],
+      "group_norm_groups": 32,
+      "spectral_normalization": true,
+      "gradient_checkpointing": true
+    },
+    "optimizer": {
+      "learning_rate": 2e-05,
+      "adam_beta1": 0.5,
+      "adam_beta2": 0.9,
+      "weight_decay": 0.0,
+      "adam_epsilon": 1e-08
+    },
+    "start_step": 500
+  }
+}

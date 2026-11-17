@@ -1,0 +1,106 @@
+{
+  "family": "wan21",
+  "seed": 2026,
+  "steps": 5000,
+  "precision": "fp32",
+  "accumulation_steps": 1,
+  "lr": 1e-05,
+  "min_lr": 1e-06,
+  "warmup": 50,
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "weight_decay": 0.0,
+    "eps": 1e-08
+  },
+  "ema_decay": 0.999,
+  "gradient_clip": 1.0,
+  "eval_every": 100,
+  "save_every": 100,
+  "train_geometry": {
+    "frames": 81,
+    "height": 480,
+    "width": 832
+  },
+  "val_geometry": {
+    "frames": 17,
+    "height": 480,
+    "width": 832
+  },
+  "validation_videos": 16,
+  "loss": {
+    "l1": 1.0,
+    "perceptual": 0.8,
+    "feature": 0.05,
+    "gan": 0.05,
+    "lpips_frames": "all",
+    "guidance": {
+      "epsilon": 0.01,
+      "max_weight": 10.0
+    }
+  },
+  "gan": {
+    "enabled": true,
+    "spatial_compression_ratio": 8,
+    "seed": 2026,
+    "correction_scale": 0.05,
+    "correction_clamp": 4.0,
+    "discriminator_warmup_iters": 100,
+    "generator_ramp_iters": 300,
+    "max_grad_norm": 1.0,
+    "discriminator": {
+      "condition_channels": 8,
+      "base_channels": 32,
+      "channel_multipliers": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "temporal_strides": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "group_norm_groups": 16,
+      "spectral_normalization": true,
+      "gradient_checkpointing": true
+    },
+    "frame_discriminator": {
+      "enabled": true,
+      "weight": 1.0,
+      "condition_channels": 16,
+      "base_channels": 64,
+      "channel_multipliers": [
+        1,
+        2,
+        4,
+        8,
+        8
+      ],
+      "spatial_strides": [
+        2,
+        2,
+        2,
+        1,
+        1
+      ],
+      "group_norm_groups": 32,
+      "spectral_normalization": true,
+      "gradient_checkpointing": true
+    },
+    "optimizer": {
+      "learning_rate": 2e-05,
+      "adam_beta1": 0.5,
+      "adam_beta2": 0.9,
+      "weight_decay": 0.0,
+      "adam_epsilon": 1e-08
+    },
+    "start_step": 500,
+    "frames": 17,
+    "crop_size": 256
+  }
+}

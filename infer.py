@@ -32,6 +32,8 @@ def make_parser():
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--encoder-variant", choices=("base", "lite"), default="base",
                         help="Encoder architecture (default: base); Lite is H3-only")
+    parser.add_argument("--decoder-config", type=Path,
+                        help="Architecture JSON exported with a newly trained decoder")
     return parser
 
 
@@ -49,6 +51,8 @@ def resolve_args(args):
         args.model, args.encoder_variant, "encoder", args.encoder_weights)
     decoder, config, decoder_weights = component_spec(
         args.model, args.variant, "decoder", args.decoder_weights)
+    if args.decoder_config is not None:
+        config = args.decoder_config
     resolved = dict(vars(args), encoder=encoder, decoder=decoder, dtype="bf16",
                     encoder_config=encoder_config, encoder_weights=encoder_weights,
                     config=config, decoder_weights=decoder_weights)
