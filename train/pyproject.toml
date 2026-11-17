@@ -17,7 +17,7 @@ dependencies = [
 h3 = ["diffusers", "accelerate"]
 
 [tool.setuptools.packages.find]
-include = ["vae_prune", "vae_prune.*"]
+include = ["src", "src.*"]
 namespaces = false
 
 [tool.ruff]

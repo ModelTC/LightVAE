@@ -76,7 +76,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--teacher", type=Path, required=True)
-    parser.add_argument("--student", type=Path, required=True, help="Merged portable student from vae_prune.export")
+    parser.add_argument("--student", type=Path, required=True, help="Merged portable student from src.export")
     parser.add_argument("--train-manifest", type=Path, nargs="+", required=True)
     parser.add_argument("--val-manifest", type=Path, nargs="+", required=True)
     parser.add_argument("--output", type=Path, required=True)
