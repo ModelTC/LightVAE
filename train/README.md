@@ -210,14 +210,3 @@ python infer.py --model "$FAMILY" --variant lite \
 
 H3 recovery already writes inference-compatible safetensors; no Wan conversion is
 needed for them. Use the encoder and decoder from the same saved recovery step.
-
-## Tests
-
-```bash
-python -m pip install -e './train[test]'
-python -m pytest -q train/tests
-```
-
-H3 tests require the optional H3 dependencies. Tests cover TLR streaming gradients,
-singular-value retention, LoRA merge equivalence, EMA gate selection, probe
-weights, GAN scheduling, component freezing and unpadded distributed evaluation.

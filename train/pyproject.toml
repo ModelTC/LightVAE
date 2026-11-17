@@ -15,7 +15,6 @@ dependencies = [
 
 [project.optional-dependencies]
 h3 = ["diffusers", "accelerate"]
-test = ["pytest", "ruff"]
 
 [tool.setuptools.packages.find]
 include = ["vae_prune", "vae_prune.*"]
