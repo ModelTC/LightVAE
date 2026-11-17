@@ -1,5 +1,0 @@
-# Use a working CUDA PyTorch environment first. This run used torch 2.11.0+cu130
-# and torchvision 0.26.0+cu130; retain matching torch/torchvision versions.
--e .[cli]
-diffusers==0.38.0
-timm==1.0.29
