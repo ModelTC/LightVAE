@@ -1,0 +1,1813 @@
+{
+  "schema_version": 1,
+  "family": "ltx25",
+  "config": {
+    "license": "                  LTX-2.x Community License Agreement                   \n                     License date: August 11, 2026                      \n\n\n   By downloading, using, accessing or distributing any portion or\n   element of LTX-2.x, you agree that you have read and accepted to be\n   bound by this Agreement.\n\n   1. Definitions\n\n      1.1 \"Agreement\" means the terms and conditions for this LTX-2.x\n          Community License Agreement and the exhibits, attachments, and\n          Complementary Materials, as specified in this document.\n\n      1.2 \"Complementary Materials\" means the accompanying\n          documentation, tutorials, examples, configuration files and\n          other materials made available by Licensor together with the\n          LTX-2.x model weights and parameters, in each case as\n          distributed by Licensor.\n\n      1.3 \"Control\" means the direct or indirect ownership of more than\n          fifty percent (50%) of the voting securities or other\n          ownership interests, or the power to direct the management and\n          policies of such Entity through voting rights, contract, or\n          otherwise.\n\n      1.4 \"Data\" means a collection of information and/or content\n          extracted from the dataset used with LTX-2.x, including to\n          train, pretrain, or otherwise evaluate LTX-2.x. The Data is\n          not licensed under this Agreement.\n\n      1.5 \"Derivatives of LTX-2.x\" means all modifications to LTX-2.x,\n          works based on LTX-2.x, or any other model which is created or\n          initialized by transfer of patterns of the weights,\n          parameters, activations or output of LTX-2.x, to the other\n          model, in order to cause the other model to perform similarly\n          to LTX-2.x, including - but not limited to - distillation\n          methods entailing the use of intermediate data representations\n          or methods based on the generation of synthetic data by\n          LTX-2.x for training the other model. For clarity, Derivatives\n          of LTX-2.x include: (i) any fine-tuned or adapted weights,\n          parameters, or checkpoints derived from LTX-2.x; (ii)\n          derivative model architectures that incorporate or are based\n          upon LTX-2.x's architecture; and (iii) any modified or\n          extended versions of the Complementary Materials.\n\n      1.6 \"Entity\" means any individual, corporation, partnership,\n          limited liability company, or other legal entity. For purposes\n          of this Agreement, an Entity shall be deemed to include, on an\n          aggregative basis, all subsidiaries, affiliates, and other\n          companies under common Control with such Entity. When\n          determining whether an Entity meets any threshold under this\n          Agreement (including revenue thresholds in Section 2.1), all\n          subsidiaries, affiliates, and companies under common Control\n          shall be considered collectively.\n\n      1.7 \"Harm\" includes but is not limited to physical, mental,\n          psychological, financial and reputational damage, pain, or\n          loss.\n\n      1.8 \"Licensor\" or \"LTX\" means the owner that is granting the\n          license under this Agreement. For the purposes of this\n          Agreement, the Licensor is Lightricks Ltd.\n\n      1.9 \"LTX-2.x\" means the large generative models,\n          text/image/video/audio/3D generation models, and multimodal\n          large language models and their software and algorithms,\n          including trained model weights, parameters (including\n          optimizer states), machine-learning model code,\n          inference-enabling code, training-enabling code, fine-tuning\n          enabling code, accompanying source code, scripts, and all\n          other elements of the foregoing distributed and made publicly\n          available by LTX (including, for example, at\n          https://github.com/Lightricks/LTX-2). This license is\n          applicable to all LTX-2.5 versions released since August 11,\n          2026, and all future releases of LTX-2.x under this license.\n\n      1.10 \"Output\" means the results of operating LTX-2.x as embodied\n           in informational content resulting therefrom.\n\n      1.11 \"you\" (or \"your\") means an individual or legal Entity\n           licensing LTX-2.x in accordance with this Agreement and/or\n           otherwise downloading, accessing, distributing or using\n           LTX-2.x for whichever purpose and in any field of use,\n           including usage of LTX-2.x in an end-use application - e.g.\n           chatbot, translator, image generator.\n\n   2. Grant of License.\n\n      2.1 Subject to your compliance with the terms and conditions of\n          this Agreement, you are granted a non-exclusive, worldwide,\n          non-transferable and royalty-free limited license under\n          Licensor's intellectual property or other rights owned by\n          Licensor embodied in LTX-2.x to use, reproduce, prepare,\n          distribute, publicly display, publicly perform, sublicense,\n          copy, create derivative works of, and make modifications to\n          LTX-2.x, for any purpose, subject to the restrictions set\n          forth in Attachment A; provided however, that Entities with\n          annual revenues of at least $10,000,000 (the \"Commercial\n          Entities\") are required to obtain a paid license for any use\n          (excluding use solely for a Non-Commercial Purpose as set\n          forth in Section 2.2) of LTX-2.x and Derivatives of LTX-2.x\n          (such paid license referred to herein as a \"Commercial Use\n          Agreement\"), as will be provided by the Licensor. Commercial\n          Entities interested in such a commercial license are required\n          to contact Licensor (ltxv-licensing@lightricks.com). Any use\n          of LTX-2.x or Derivatives of LTX-2.x by Commercial Entities\n          not in accordance with this Agreement and/or the Commercial\n          Use Agreement is strictly prohibited and shall be deemed a\n          material breach of this Agreement. In the event of such\n          material breach, and without limiting Licensor's right to\n          terminate the Agreement or to pursue any other remedies\n          available at law or in equity, you shall pay Licensor the\n          license fees owed for the period such Commercial Entity used\n          LTX-2.x (calculated at Licensor's standard commercial license\n          fees, in effect during the relevant period or, absent\n          published standard fees, a reasonable market rate for a\n          comparable license), within thirty (30) days of Licensor's\n          written demand.\n\n      2.2 Notwithstanding the foregoing or anything to the contrary in\n          this Agreement, a Commercial Entity may download and use\n          LTX-2.x and Derivatives of LTX-2.x without obtaining the\n          Commercial Use Agreement solely for a Non-Commercial Purpose.\n          \"Non-Commercial Purpose\" means any of the following uses, but\n          only so far as such Commercial Entity does not receive any\n          direct or indirect payment arising from the use of LTX-2.x or\n          Derivatives of LTX-2.x: (i) use by an individual acting in a\n          personal capacity for research, experimentation, learning,\n          private study, hobby or recreational projects, or personal\n          entertainment, in each case where such use is not connected,\n          directly or indirectly, to any commercial activity, business\n          operation, or the performance of duties for an employer or any\n          other Entity; and (ii) use by a Commercial Entity for testing,\n          evaluation, or non-commercial research and development in a\n          non-production or development environment. For clarity, use\n          (a) for revenue-generating activity in any manner, whether\n          direct or indirect, (b) in direct interactions with or that\n          has impact on end users, or (c) to train, fine-tune, or\n          distill any model (including any Derivative of LTX-2.x) for\n          commercial use, in each case, is not a Non-Commercial Purpose\n          and requires all Commercial Entities to obtain a paid license\n          under the Commercial Use Agreement prior to such use. For the\n          avoidance of doubt, the permission granted under this Section\n          2.2 is a limited right of use only and does not convey or\n          transfer any ownership right, title, or interest in or to\n          LTX-2.x or any Derivatives of LTX-2.x, and all Derivatives of\n          LTX-2.x created or used pursuant to this Section 2.2 remain\n          subject to the terms of this Agreement, including Section 1.5.\n\n   3. Distribution and Redistribution. You may host for third parties\n      remote access purposes (e.g. software-as-a-service), reproduce and\n      distribute copies of LTX-2.x or Derivatives of LTX-2.x thereof in\n      any medium, with or without modifications, provided that you meet\n      the following conditions:\n\n      3.1 Use-based restrictions as referenced in Section 4 and all\n          provisions of Attachment A MUST be included as an enforceable\n          provision by you in any type of legal agreement (e.g. a\n          license) governing the use and/or distribution of LTX-2.x or\n          Derivatives of LTX-2.x, and you shall give notice to\n          subsequent users you distribute to, that LTX-2.x or\n          Derivatives of LTX-2.x are subject to Section 4 and Attachment\n          A in their entirety, including all use restrictions and\n          acceptable use policies;\n\n      3.2 You must provide any third-party recipients of LTX-2.x or\n          Derivatives of LTX-2.x a copy of this Agreement, including all\n          attachments and use policies. Any Derivative of LTX-2.x (as\n          defined in Section 1.5, including but not limited to\n          fine-tuned weights, modified training code, models trained on\n          Outputs, or any other derivative) must be distributed\n          exclusively under the terms of this Agreement, subject to\n          Section 3.6, with a complete copy of this Agreement included;\n\n      3.3 You must cause any modified files to carry prominent notices\n          stating that you changed the files;\n\n      3.4 You must retain all copyright, patent, trademark, and\n          attribution notices excluding those notices that do not\n          pertain to any part of LTX-2.x, Derivatives of LTX-2.x.\n\n      3.5 Transfer of Derivatives. No transfer of any Derivative of\n          LTX-2.x (including any fine-tuned weights, LoRA adapters, or\n          similar adaptations) to a third party shall grant such third\n          party any right, title, license, or authorization to access,\n          use, reproduce, distribute, or exploit LTX-2.x, or any\n          Derivative of LTX-2.x beyond the rights granted under this\n          Agreement. If the transferee is a Commercial Entity (as\n          defined in Section 2), it must obtain a paid license from\n          Licensor prior to any use of any Derivative of LTX-2.x,\n          regardless of who created such Derivative. Prior to or at the\n          time of any such transfer, you shall notify the transferee in\n          writing that (i) use of such Derivative of LTX-2.x is subject\n          to the terms of this Agreement, and (ii) if the transferee is\n          a Commercial Entity, it must obtain a separate paid license to\n          LTX-2.x from Licensor. You shall not transfer any Derivative\n          of LTX-2.x to a Commercial Entity unless such Commercial\n          Entity has obtained the required paid license from Licensor\n          prior to any use, and unless the proposed transferee has been\n          so informed. You and the transferee shall each be responsible\n          for ensuring the transferee obtains the required license from\n          Licensor prior to any use of LTX-2.x or Derivative of LTX-2.x.\n          Nothing in this Section 3.5 shall require a Commercial Entity\n          to obtain a paid license for use solely for a Non-Commercial\n          Purpose as permitted under Section 2.2.\n\n      3.6 You may add your own copyright statement to your modifications\n          and may provide additional license terms and conditions -\n          respecting Section 3.1 - for use, reproduction, or\n          distribution of your modifications, or for any such\n          Derivatives of LTX-2.x as a whole, provided your use,\n          reproduction, and distribution of LTX-2.x otherwise complies\n          with the conditions stated in this Agreement, and you provide\n          a complete copy of this Agreement with any such use,\n          reproduction and distribution of LTX-2.x and any Derivatives\n          thereof; provided that any such additional terms shall be\n          additive only and shall not derogate from, conflict with,\n          waive, or purport to modify any term of this Agreement, and\n          this Agreement shall govern in the event of any conflict.\n\n   4. Use-based restrictions. The restrictions set forth in Attachment A\n      are considered Use-based restrictions. Therefore, you cannot use\n      LTX-2.x and the Derivatives of LTX-2.x in violation of the\n      specified restricted uses. You may use LTX-2.x subject to this\n      Agreement, only for lawful purposes and in accordance with the\n      Agreement. \"Use\" may include creating any content with,\n      fine-tuning, updating, running, training, evaluating and/or\n      re-parametrizing LTX-2.x. You shall require all of your users who\n      use LTX-2.x or a Derivative of LTX-2.x to comply with the terms of\n      this Section 4.\n\n   5. The Output You Generate. Except as set forth herein, Licensor\n      claims no rights in the Output you generate using LTX-2.x. You are\n      accountable for input you insert into LTX-2.x, the Output you\n      generate and its subsequent uses. No use of the Output can\n      contravene any provision as stated in the Agreement.\n\n   6. Updates and Runtime Restrictions; AI Regulations. To the maximum\n      extent permitted by law, Licensor reserves the right to restrict\n      (remotely or otherwise) usage of LTX-2.x in violation of this\n      Agreement, update LTX-2.x through electronic means, or modify the\n      Output of LTX-2.x based on updates. You shall undertake reasonable\n      efforts to use the latest version of LTX-2.x. Any use of the\n      non-current version of LTX-2.x is done solely at your risk. To the\n      extent applicable to you, you shall comply with all laws and\n      regulations governing artificial intelligence that apply to your\n      use, deployment, or distribution of LTX-2.x, Derivatives of\n      LTX-2.x, or Outputs, including Regulation (EU) 2024/1689 (the \"EU\n      AI Act\") and the California AI Transparency Act (Cal. Bus. & Prof.\n      Code \u00a7 22757 et seq.), each as amended from time to time and any\n      other applicable laws, regulations, or binding guidance relating\n      to artificial intelligence, transparency, content provenance, or\n      synthetic media, together with any documentation made available by\n      Licensor regarding compliance with the same (collectively, \"AI\n      Regulations\"). You shall maintain (including within any\n      application or service through which LTX-2.x, any Derivative of\n      LTX-2.x, or any Output is made available), and shall not remove,\n      disable, alter, or circumvent, any safety or security measures,\n      disclosures, metadata, watermarking, content provenance, latent\n      disclosure, or other transparency features or functionalities\n      included or embedded within LTX-2.x or any Derivative of LTX-2.x,\n      or applied to any Output, in furtherance of AI Regulations,\n      including any capability of LTX-2.x to include latent disclosures\n      in Outputs, and you shall include equivalent obligations in any\n      agreement governing your distribution of LTX-2.x or any Derivative\n      of LTX-2.x. You are solely responsible for any transparency,\n      disclosure, marking, or labeling obligations applicable to you\n      under AI Regulations as a provider or deployer of LTX-2.x, any\n      Derivative of LTX-2.x, or any system incorporating any of the\n      foregoing, including any obligation to disclose that content is\n      artificially generated or manipulated. If Licensor knows or\n      reasonably believes that you have modified LTX-2.x or any\n      Derivative of LTX-2.x such that it is no longer capable of\n      including any disclosure required by AI Regulations in Outputs, or\n      that you have otherwise removed, disabled, or circumvented any\n      feature or functionality described in this Section, Licensor may\n      in its sole discretion revoke the license granted under this\n      Agreement effective immediately upon notice to you, and upon such\n      revocation you shall immediately cease all use of LTX-2.x and\n      Derivatives of LTX-2.x. Licensor makes no representation or\n      warranty that LTX-2.x, any Derivative of LTX-2.x, or any Output\n      complies with any AI Regulations applicable to your specific use\n      case or deployment, and you are solely responsible for determining\n      the applicability of, and ensuring your compliance with, all AI\n      Regulations. You shall indemnify, defend, and hold harmless\n      Licensor and its affiliates from and against any and all claims,\n      liabilities, losses, damages, costs, and expenses (including\n      reasonable attorneys' fees) arising out of or relating to your\n      use, deployment, distribution, or modification of LTX-2.x, any\n      Derivative of LTX-2.x, or any Output in violation of, or your\n      other failure to comply with, any AI Regulations.\n\n      For purposes of the EU AI Act, Licensor makes LTX-2.x openly\n      available under this community license and intends that LTX-2.x be\n      treated as a free and open-source general purpose AI model within\n      the meaning of Article 53(2) of the EU AI Act. You acknowledge and\n      agree that (a) to the extent the free and open source derogations\n      under Article 53(2) of the EU AI Act apply, Licensor's obligations\n      under the EU AI Act with respect to LTX-2.x are limited to those\n      applicable to providers of free and open source general purpose AI\n      models (it being acknowledged that such derogations do not extend\n      to the obligations under Article 53(1)(c) and (d)), (b) you\n      acknowledge that LTX-2.x is not intended to be integrated into a\n      high risk AI system, and shall be fully and solely responsible for\n      any obligation resulting from such integration, (c) if you\n      integrate LTX-2.x or any Derivative of LTX-2.x into a high-risk AI\n      system you shall be solely responsible for all provider\n      obligations that would otherwise apply to Licensor under the EU AI\n      Act, and (d) you shall not take any action, or omit to take any\n      action, that would cause Licensor to lose the benefit of the free\n      and open source derogations under the EU AI Act, and you shall\n      indemnify and hold Licensor harmless from any liability, costs, or\n      expenses arising from your breach of this Section.\n\n   7. Export Controls and Sanctions Compliance. You acknowledge that\n      LTX-2.x, Derivatives of LTX-2.x may be subject to export control\n      laws and regulations, including but not limited to the U.S. Export\n      Administration Regulations and sanctions programs administered by\n      the Office of Foreign Assets Control (OFAC). You represent and\n      warrant that you and any users of LTX-2.x are not (i) located in,\n      organized under the laws of, or ordinarily resident in any country\n      or territory subject to comprehensive sanctions; (ii) identified\n      on any U.S. government restricted party list, including the\n      Specially Designated Nationals and Blocked Persons List; or (iii)\n      otherwise prohibited from receiving LTX-2.x under applicable law.\n      You shall not export, re-export, or transfer LTX-2.x, directly or\n      indirectly, in violation of any applicable export control or\n      sanctions laws or regulations. You agree to comply with all\n      applicable trade control laws and shall indemnify and hold\n      Licensor harmless from any claims arising from your failure to\n      comply with such laws.\n\n   8. Trademarks; Reservation of Rights. Nothing in this Agreement\n      permits you to make use of Licensor's trademarks, trade names,\n      logos or to otherwise suggest endorsement or misrepresent the\n      relationship between the parties; and any rights not expressly\n      granted herein are reserved by the Licensor. Except as expressly\n      set forth in this Agreement, Licensor does not grant, directly or\n      by implication, estoppel, statute or otherwise, any right or\n      license in its, or its affiliates', intellectual property rights\n      or other proprietary rights. For avoidance of doubt, all\n      intellectual property rights in Derivatives of LTX-2.x shall be\n      subject to the terms of this Agreement, and you acquire no right,\n      title, or interest in or to LTX-2.x itself, which is and remains\n      the exclusive property of Licensor. You shall not assert any\n      ownership or other right in LTX-2.x or any Derivative of LTX-2.x\n      in any manner that restricts, encumbers, or is inconsistent with\n      the rights retained by Licensor or granted to other licensees\n      under this Agreement.\n\n   9. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides LTX-2.x on an \"AS IS\"\n      BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n      express or implied, including, without limitation, any warranties\n      or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or\n      FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for\n      determining the appropriateness of using or redistributing LTX-2.x\n      and Derivatives of LTX-2.x and assume any risks associated with\n      your exercise of permissions under this Agreement.\n\n   10. Limitation of Liability. To the fullest extent permitted by\n       applicable law, in no event and under no legal theory, whether in\n       tort (including negligence), contract, or otherwise, unless\n       required by applicable law (such as deliberate and grossly\n       negligent acts) or agreed to in writing, shall Licensor be liable\n       to you or any other individual or Entity for damages, including\n       any direct, indirect, special, incidental, or consequential\n       damages of any character arising as a result of this Agreement or\n       out of the use of, or inability to use LTX-2.x or any Derivative\n       of LTX-2.x (including but not limited to damages for loss of\n       goodwill, work stoppage, computer failure or malfunction, or any\n       and all other commercial damages or losses), even if Licensor has\n       been advised of the possibility of such damages.\n\n   11. Accepting Warranty or Additional Liability. While redistributing\n       LTX-2.x and Derivatives of LTX-2.x, you may, provided you do not\n       violate the terms of this Agreement, choose to offer and charge a\n       fee for, acceptance of support, warranty, indemnity, or other\n       liability obligations. However, in accepting such obligations,\n       you may act only on your own behalf and on your sole\n       responsibility, not on behalf of Licensor, and only if you agree\n       to indemnify, defend, and hold Licensor harmless for any\n       liability incurred by, or claims asserted against Licensor, by\n       reason of your accepting any such warranty or additional\n       liability.\n\n   12. Governing Law. This Agreement and all relations, disputes, claims\n       and other matters arising hereunder (including non-contractual\n       disputes or claims) will be governed exclusively by, and\n       construed exclusively in accordance with, the laws of the State\n       of New York and applicable U.S. federal law. To the extent\n       permitted by law, choice of laws rules and the United Nations\n       Convention on Contracts for the International Sale of Goods will\n       not apply. The prevailing party in any claim or dispute between\n       the parties under this Agreement will be entitled to\n       reimbursement of its reasonable attorneys' fees and costs.\n\n   13. Term and Termination. This Agreement is effective upon your\n       acceptance and continues until terminated. Licensor may terminate\n       this Agreement immediately upon written notice to you if you\n       breach any provision of this Agreement, including but not limited\n       to violations of the use restrictions in Attachment A or\n       unauthorized commercial use. This Agreement also terminates\n       immediately and automatically, without notice, upon any material\n       breach of this Agreement, including any use in violation of\n       applicable AI Regulations or any unauthorized commercial use of\n       LTX-2.x or Derivatives of LTX-2.x by a Commercial Entity. Upon\n       termination: (a) all rights granted to you under this Agreement\n       will immediately cease; (b) you must immediately cease all use of\n       LTX-2.x and Derivatives of LTX-2.x; (c) you must delete or\n       destroy all copies of LTX-2.x and Derivatives of LTX-2.x in your\n       possession or control; and (d) you must notify any third parties\n       to whom you distributed LTX-2.x or Derivatives of LTX-2.x of the\n       termination. Sections 2, 3, 4, 6-16 and Attachment A shall\n       survive termination of this Agreement. Termination does not\n       relieve you of any obligations incurred prior to termination,\n       including payment obligations under Section 2 and adhering to the\n       restrictions under Section 3. In addition, if You commence a\n       lawsuit or other proceedings (including a cross-claim or\n       counterclaim in a lawsuit) against Licensor or any person or\n       entity alleging that LTX-2.x or any Output, or any portion of any\n       of the foregoing, infringe any intellectual property or other\n       right owned or licensable by you, then all licenses granted to\n       you under this Agreement shall terminate as of the date such\n       lawsuit or other proceeding is filed.\n\n   14. Disputes and Arbitration; Waiver of Jury Trial; Class Action\n       Waiver. IF YOU ARE NOT ACTING AS A CONSUMER UNDER APPLICABLE LAW,\n       YOU HEREBY WAIVE THE RIGHT TO A TRIAL BY JURY, TO PARTICIPATE IN\n       A CLASS OR REPRESENTATIVE ACTION (INCLUDING IN ARBITRATION), OR\n       TO COMBINE INDIVIDUAL PROCEEDINGS IN COURT OR IN ARBITRATION\n       WITHOUT THE CONSENT OF ALL PARTIES. All disputes arising in\n       connection with this Agreement shall be finally settled by\n       arbitration under the Rules of Arbitration of the International\n       Chamber of Commerce (\"ICC Rules\"), by one (1) arbitrator\n       appointed in accordance with the ICC Rules. The seat of\n       arbitration shall be New York, NY, USA, and the proceedings shall\n       be conducted in English. The arbitrator shall be empowered to\n       grant any relief that a court could grant. Judgment on the\n       arbitration award may be entered by any court having jurisdiction\n       thereof. Notwithstanding the foregoing, either party may seek\n       injunctive or other equitable relief in respect of any actual or\n       threatened breach of the license restrictions under this\n       Agreement (including Attachment A and the Acceptable Use Policy)\n       or any actual or threatened infringement, misappropriation, or\n       violation of Licensor's intellectual property rights, in the\n       state or federal courts located in the County of New York, State\n       of New York, and each party irrevocably consents to the\n       jurisdiction of, and venue in, such courts for that limited\n       purpose. The foregoing waivers do not apply to, and are not\n       enforceable against, any licensee acting as a consumer under the\n       mandatory consumer-protection laws of its jurisdiction of\n       residence (including, without limitation, the European Union, the\n       United Kingdom, and the State of California), and nothing in this\n       Agreement limits any rights under such laws that cannot be waived\n       or limited by contract. If any waiver in this Section is held\n       invalid or unenforceable as to a particular licensee or dispute,\n       such waiver shall be severed to that extent only and shall not\n       affect the validity or enforceability of the remainder of this\n       Section.\n\n   15. In the event of any exception to the application of binding\n       arbitration, all disputes, claims, and other matters arising\n       hereunder shall be brought exclusively in the state or federal\n       courts located in the County of New York, State of New York. You\n       waive all defenses of lack of personal jurisdiction and forum non\n       conveniens with respect to venue and jurisdiction in such courts,\n       and consent to their exclusive jurisdiction and venue.\n\n   16. Severability. If any provision of this Agreement is held to be\n       invalid, illegal or unenforceable, the remaining provisions shall\n       be unaffected thereby and remain valid as if such provision had\n       not been set forth herein.\n\n                      END OF TERMS AND CONDITIONS                       \n\n                              Attachment A                              \n                            Use Restrictions                            \n\n   When using the Outputs, LTX-2.x and any Derivatives thereof, you\n   agree to comply with the Acceptable Use Policy\n   (https://static.lightricks.com/legal/ltx-acceptable-use-policy.pdf)\n   which is hereby incorporated into and made part of this Agreement by\n   reference. Licensor may update it from time to time, and the version\n   in effect at the time of your use governs; continued use after an\n   update constitutes acceptance. Licensor shall post each version of\n   the Acceptable Use Policy with its effective date, and no update\n   shall apply retroactively to use occurring before that effective\n   date. In addition, you agree not to use the Outputs, LTX-2.x or its\n   Derivatives in any of the following ways:\n\n      1) In any way that violates any applicable national, federal,\n         state, local or international law or regulation;\n\n      2) For the purpose of exploiting, Harming or attempting to exploit\n         or Harm minors in any way;\n\n      3) Knowingly generate or disseminate verifiably false information\n         and/or content with the intent to deceive, defraud, or\n         otherwise unlawfully Harm others;\n\n      4) To generate or disseminate personal identifiable information\n         that can be used to Harm an individual;\n\n      5) To generate or disseminate information and/or content (e.g.\n         images, code, posts, articles), and place the information\n         and/or content in any context (e.g. bot generating tweets)\n         without expressly and intelligibly disclaiming that the\n         information and/or content is machine generated;\n\n      6) To defame others, or to engage in the unlawful harassment of\n         others;\n\n      7) To impersonate or attempt to impersonate (e.g. deepfakes)\n         others without their consent;\n\n      8) For fully automated decision making that adversely impacts an\n         individual's legal rights or otherwise creates or modifies a\n         binding, enforceable obligation;\n\n      9) For any use intended to or which has the effect of\n         discriminating against or Harming individuals or groups based\n         on online or offline social behavior or known or predicted\n         personal or personality characteristics;\n\n      10) To exploit any of the vulnerabilities of a specific group of\n          persons based on their age, social, physical or mental\n          characteristics, in order to materially distort the behavior\n          of a person pertaining to that group in a manner that causes\n          or is likely to cause that person or another person physical\n          or psychological Harm;\n\n      11) For any use intended to or which has the effect of\n          discriminating against individuals or groups based on legally\n          protected characteristics or categories;\n\n      12) To provide medical advice and medical results interpretation;\n\n      13) To generate or disseminate information for the purpose to be\n          used for administration of justice, law enforcement,\n          immigration or asylum processes, such as predicting an\n          individual will commit fraud/crime commitment (e.g. by text\n          profiling, drawing causal relationships between assertions\n          made in documents, indiscriminate and arbitrarily-targeted\n          use);\n\n      14) To generate and/or disseminate malware (including - but not\n          limited to - ransomware) or any other content to be used for\n          the purpose of harming electronic systems;\n\n      15) To engage in, promote, incite, or facilitate discrimination or\n          other unlawful or harmful conduct in the provision of\n          employment, employment benefits, credit, housing, or other\n          essential goods and services;\n\n      16) To engage in, promote, incite, or facilitate the harassment,\n          abuse, threatening, or bullying of individuals or groups of\n          individuals;\n\n      17) For military, warfare, nuclear industries or applications,\n          weapons development, or any use in connection with activities\n          that may cause death, personal injury, or severe physical or\n          environmental damage;\n\n      18) For commercial use only: To train, improve, or fine-tune any\n          other machine learning model, artificial intelligence system,\n          or competing model, except for Derivatives of LTX-2.x as\n          expressly permitted under this Agreement;\n\n      19) To circumvent, disable, or interfere with any technical\n          limitations, safety features, content filters, watermarking,\n          content provenance or latent disclosure functionalities, or\n          use restrictions implemented in LTX-2.x by Licensor;\n\n      20) To use LTX-2.x or Derivatives of LTX-2.x in any product,\n          service, or application that directly competes with Licensor's\n          commercial products or services, or is designed to replace or\n          substitute Licensor's offerings in the market, without\n          obtaining a separate commercial license from Licensor.",
+    "config": {
+      "vae": {
+        "_class_name": "CausalVideoAutoencoder",
+        "dims": 3,
+        "in_channels": 3,
+        "out_channels": 3,
+        "latent_channels": 128,
+        "encoder_blocks": [
+          [
+            "res_x",
+            {
+              "num_layers": 4
+            }
+          ],
+          [
+            "compress_space_res",
+            {
+              "multiplier": 2
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 6
+            }
+          ],
+          [
+            "compress_time_res",
+            {
+              "multiplier": 2
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 4
+            }
+          ],
+          [
+            "compress_all_res",
+            {
+              "multiplier": 2
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 2
+            }
+          ],
+          [
+            "compress_all_res",
+            {
+              "multiplier": 1
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 2
+            }
+          ]
+        ],
+        "decoder_blocks": [
+          [
+            "res_x",
+            {
+              "num_layers": 4
+            }
+          ],
+          [
+            "compress_space",
+            {
+              "multiplier": 2
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 6
+            }
+          ],
+          [
+            "compress_time",
+            {
+              "multiplier": 2
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 4
+            }
+          ],
+          [
+            "compress_all",
+            {
+              "multiplier": 1
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 2
+            }
+          ],
+          [
+            "compress_all",
+            {
+              "multiplier": 2
+            }
+          ],
+          [
+            "res_x",
+            {
+              "num_layers": 2
+            }
+          ]
+        ],
+        "scaling_factor": 1.0,
+        "norm_layer": "pixel_norm",
+        "patch_size": 4,
+        "latent_log_var": "uniform",
+        "use_quant_conv": false,
+        "causal_decoder": false,
+        "timestep_conditioning": false,
+        "normalize_latent_channels": false,
+        "encoder_base_channels": 128,
+        "decoder_base_channels": 128,
+        "spatial_padding_mode": "zeros"
+      }
+    },
+    "model_version": "2.5.0"
+  },
+  "variants": {
+    "0.4": {
+      "eta": 0.4,
+      "step": 9100,
+      "tlr_records": [
+        {
+          "path": "up_blocks.0.res_blocks.0.conv1.conv",
+          "rank": 230,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4000104079485761,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.0.res_blocks.0.conv2.conv",
+          "rank": 237,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4011324524042609,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.0.res_blocks.1.conv1.conv",
+          "rank": 215,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40072130805456446,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.0.res_blocks.1.conv2.conv",
+          "rank": 225,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40041767076232526,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.0.conv1.conv",
+          "rank": 145,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4016359695865513,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.0.conv2.conv",
+          "rank": 132,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4004476810282347,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.1.conv1.conv",
+          "rank": 153,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4010239942362435,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.1.conv2.conv",
+          "rank": 142,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40075539698609763,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.0.conv1.conv",
+          "rank": 130,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4015307161722894,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.0.conv2.conv",
+          "rank": 118,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4004777713657508,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.1.conv1.conv",
+          "rank": 127,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.401499690781053,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.1.conv2.conv",
+          "rank": 120,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40029713626085905,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.2.conv1.conv",
+          "rank": 126,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40079503737683475,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.2.conv2.conv",
+          "rank": 119,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.40153248112037065,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.3.conv1.conv",
+          "rank": 130,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4020788134482,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.3.conv2.conv",
+          "rank": 137,
+          "eta": 0.4,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.4000937937992295,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.3.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.3.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.4.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.4.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.5.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.5.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.3.conv1.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.3.conv2.conv",
+          "rank": 0,
+          "eta": 0.4,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        }
+      ],
+      "checkpoint_sha256": "e8296908ee72fb805634d22ed4e3c30948bba77c01eb103a3b54ffd04bb0f70c"
+    },
+    "0.6": {
+      "eta": 0.6,
+      "step": 9500,
+      "tlr_records": [
+        {
+          "path": "up_blocks.0.res_blocks.0.conv1.conv",
+          "rank": 435,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6008485918733706,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.0.res_blocks.0.conv2.conv",
+          "rank": 432,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6006910674124835,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.0.res_blocks.1.conv1.conv",
+          "rank": 389,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6004316972112309,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.0.res_blocks.1.conv2.conv",
+          "rank": 406,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            1024,
+            1024,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6004724353108344,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.0.conv1.conv",
+          "rank": 244,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6003036397051883,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.0.conv2.conv",
+          "rank": 227,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.600494983539645,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.1.conv1.conv",
+          "rank": 253,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6014607757822232,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.2.res_blocks.1.conv2.conv",
+          "rank": 239,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6015410022963016,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.0.conv1.conv",
+          "rank": 230,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.601417157681944,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.0.conv2.conv",
+          "rank": 218,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6015247882386984,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.1.conv1.conv",
+          "rank": 230,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.60168982454323,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.1.conv2.conv",
+          "rank": 219,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6017111853941624,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.2.conv1.conv",
+          "rank": 226,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6000088799494265,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.2.conv2.conv",
+          "rank": 215,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.600171830401005,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.3.conv1.conv",
+          "rank": 228,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.600681475915045,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.4.res_blocks.3.conv2.conv",
+          "rank": 233,
+          "eta": 0.6,
+          "pure2d": false,
+          "current_index": 1,
+          "shape": [
+            512,
+            512,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": 0.6007143664153972,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.3.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.3.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.4.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.4.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.5.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.6.res_blocks.5.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            256,
+            256,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.0.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.0.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.1.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.1.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.2.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.2.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.3.conv1.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        },
+        {
+          "path": "up_blocks.8.res_blocks.3.conv2.conv",
+          "rank": 0,
+          "eta": 0.6,
+          "pure2d": true,
+          "current_index": 1,
+          "shape": [
+            128,
+            128,
+            3,
+            3,
+            3
+          ],
+          "padding": [
+            0,
+            1,
+            1
+          ],
+          "padding_mode": "zeros",
+          "bias": true,
+          "retained_sigma": null,
+          "folded": false
+        }
+      ],
+      "checkpoint_sha256": "049b1f92bd20419e63ace4d0fd197c0b319ed0749f2906c0132fb0cea1472711"
+    }
+  },
+  "description": "Decoder architecture and measured-checkpoint TLR ranks; no model tensors."
+}

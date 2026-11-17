@@ -20,6 +20,8 @@ Wan2.1 · Wan2.2 · MiniMax-H3
 
 This repository provides reconstruction examples, decoder benchmarks and H3 ComfyUI workflows. For video generation with LightVAE, see [LightX2V](https://github.com/ModelTC/LightX2V).
 
+Experimental HunyuanVideo-1.5, LTX-2.5 Conv, and CogVideoX1.5 VAE reconstruction and decoder benchmarks are described in [Cross-architecture inference](CROSS_ARCH.md).
+
 ![Architecture comparison](assets/architecture.png)
 
 ## 📊 Results

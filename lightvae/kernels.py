@@ -1,4 +1,4 @@
-"""Device dispatch for the factored Wan decoder; PyTorch never expands TLR."""
+"""BF16 kernel dispatch for Wan and cross-architecture TLR decoders."""
 
 import torch
 from torch.nn import functional as F
@@ -42,3 +42,22 @@ def fused_history_up(p, weight, cache, backend="auto"):
     if use_triton(p, 8, backend):
         return triton_kernels.fused_history_up(p, weight, cache)
     return torch_history_up(p, weight, cache)
+
+
+def fused_tlr_history(p, weight, current_index, other_indices, backend="auto"):
+    """Fuse cross-architecture temporal history projection for BF16 inference."""
+    if use_triton(p, 8, backend):
+        return triton_kernels.fused_tlr_history(
+            p, weight, current_index, other_indices)
+
+    batch, input_time, _, height, width = p.shape
+    output_time = input_time - 2
+    co, rank = weight.shape[:2]
+    base = p[:, current_index:current_index + output_time, :co]
+    first, second = other_indices
+    left = p[:, first:first + output_time, co:co + rank]
+    right = p[:, second:second + output_time, co + rank:co + 2 * rank]
+    history = (left + right).reshape(batch * output_time, rank, height, width)
+    correction = F.conv2d(history, weight)
+    correction = correction.reshape(batch, output_time, co, height, width)
+    return base + correction

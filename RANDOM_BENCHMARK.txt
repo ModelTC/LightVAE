@@ -1,0 +1,36 @@
+Wan2.2 random-weight decoder benchmark
+
+No checkpoints, input videos or network access are needed during the benchmark.
+Base, LightVAE-Pro, LightVAE-Lite and Turbo-VAED run sequentially on one GPU.
+The package includes the current optimized LightVAE code and the pinned official
+Turbo decoder source. See third_party/Turbo-VAED/PROVENANCE.txt for its origin
+and the reconstructed Turbo config limitation.
+
+In a working CUDA PyTorch environment, install dependencies from this directory:
+  python -m pip install -r requirements-benchmark.txt
+
+Current measured environment:
+  Python 3.12; torch 2.11.0+cu130; torchvision 0.26.0+cu130;
+  Triton 3.6.0; diffusers 0.38.0; timm 1.0.29.
+For comparable measurements, keep software versions and benchmark options fixed.
+
+Run the 17-frame configuration (output directory must be new):
+  CUDA_VISIBLE_DEVICES=0 python random_wan22_benchmark.py \
+    --frames 17 --height 704 --width 1280 --batch 1 \
+    --warmup 5 --repeats 30 --seed 2026 \
+    --output outputs/wan22_random_17f
+
+For the paper's Table 1 Wan2.2 geometry, use --frames 81 and a new output path.
+To test only Base/Pro/Lite, append --variants base pro lite.
+
+The command prints latency in ms and FPS, and writes summary.csv, summary.json,
+and each model's raw samples and log. A model OOM does not stop the remaining
+models; the summary records OOM/FAILED instead of inventing a throughput value.
+The command exits nonzero if any variant failed, even when others succeeded.
+
+Protocol: batch1 by default, BF16, eager without torch.compile, identical seeded
+random latent for all variants, CUDA synchronization around decoder forward,
+median of measured repeats, no loading, warmup, encoder, RGB CPU copy or video I/O.
+FPS = batch * frames * 1000 / latency_ms. Peak allocated/reserved memory is logged.
+Weights are RANDOM: these are architecture/runtime benchmarks, not video quality
+evaluation and not trained-weight measurements from the paper.
