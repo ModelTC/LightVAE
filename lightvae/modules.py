@@ -26,9 +26,10 @@ class FusedNorm(nn.Module):
         )
         self.scale, self.silu = source.scale, silu
         self.backend = "auto"
+        self.channels_last = False
 
     def forward(self, x):
-        return rms_silu(x, self.gamma, self.bias, self.scale, self.silu, self.backend)
+        return rms_silu(x, self.gamma, self.bias, self.scale, self.silu, self.backend, channels_last=self.channels_last)
 
 
 class Shortcut(nn.Module):
@@ -138,6 +139,23 @@ class Decoder(nn.Module):
         self.slots = sum(isinstance(layer, TLR) for layer in self.component.modules())
         self.input_is_normalized = True
         self.eval().requires_grad_(False)
+
+    def optimize_inference(self, *, upsample="polyphase", channels_last=True):
+        """Opt into faster spatial execution after loading and casting weights."""
+        if upsample not in ("default", "polyphase", "transpose"):
+            raise ValueError(f"Unknown LightVAE upsample mode: {upsample}")
+        previous = getattr(self, "_inference_upsample", "default")
+        if previous != "default" and previous != upsample:
+            raise ValueError("Choose the upsample mode before optimizing this decoder")
+        if upsample != "default" and previous == "default":
+            from .upsample import replace_lightvae_upsamplers
+
+            replace_lightvae_upsamplers(self.component, upsample)
+            self._inference_upsample = upsample
+        for module in self.component.modules():
+            if isinstance(module, FusedNorm):
+                module.channels_last = channels_last
+        return self
 
     def _apply_layer(self, layer, x, history, slot):
         if isinstance(layer, TLR):
