@@ -23,7 +23,7 @@ def _norm(X, G, B, Y, C: tl.constexpr, T: tl.constexpr, H: tl.constexpr,
           W: tl.constexpr, S0: tl.constexpr, S1: tl.constexpr,
           S2: tl.constexpr, S3: tl.constexpr, S4: tl.constexpr,
           SCALE: tl.constexpr, SILU: tl.constexpr, BC: tl.constexpr, BS: tl.constexpr,
-          NATIVE_BF16: tl.constexpr):
+          NATIVE_BF16: tl.constexpr, CHANNELS_LAST: tl.constexpr):
     batch = tl.program_id(1)
     s = tl.program_id(0) * BS + tl.arange(0, BS)
     ch = tl.arange(0, BC)
@@ -52,25 +52,31 @@ def _norm(X, G, B, Y, C: tl.constexpr, T: tl.constexpr, H: tl.constexpr,
     value = (value + bias[:, None]).to(dtype).to(tl.float32)
     if SILU:
         value = value / (1. + tl.exp(-value))
-    # TLR consumes individual NCHW frames. Write that layout directly so
-    # frames(x) remains a view instead of copying the normalized activation.
-    out = (((batch * T + s[None, :] // (H * W)) * C + ch[:, None]) * (H * W)
-           + s[None, :] % (H * W))
+    if CHANNELS_LAST:
+        out = (batch * T * H * W + s[None, :]) * C + ch[:, None]
+    else:
+        out = (((batch * T + s[None, :] // (H * W)) * C + ch[:, None]) * (H * W)
+               + s[None, :] % (H * W))
     tl.store(Y + out, value, mask)
 
 
-def rms_silu(x, gamma, bias, scale, silu):
+def rms_silu(x, gamma, bias, scale, silu, *, channels_last=False):
     n, c = x.shape[:2]
     t, h, w = (1, *x.shape[2:]) if x.ndim == 4 else x.shape[2:]
     strides = (x.stride(0), x.stride(1), 0, *x.stride()[2:]) if x.ndim == 4 else x.stride()
-    out = (torch.empty((n, t, c, h, w), device=x.device, dtype=x.dtype).permute(0, 2, 1, 3, 4)
-           if x.ndim == 5 else torch.empty(x.shape, device=x.device, dtype=x.dtype))
+    if channels_last:
+        out = torch.empty((n, t, h, w, c), device=x.device, dtype=x.dtype).permute(0, 4, 1, 2, 3)
+        if x.ndim == 4:
+            out = out.squeeze(2)
+    else:
+        out = (torch.empty((n, t, c, h, w), device=x.device, dtype=x.dtype).permute(0, 2, 1, 3, 4)
+               if x.ndim == 5 else torch.empty(x.shape, device=x.device, dtype=x.dtype))
     with torch.cuda.device(x.device):
         # Spatial tiles use grid.x; grid.y's 65535 limit is too small for 720p.
         _norm[(triton.cdiv(t * h * w, 32), n)](
             x, gamma.contiguous(), bias.contiguous(), out, c, t, h, w,
             *strides, scale, silu, triton.next_power_of_2(c), 32,
-            torch.cuda.get_device_capability(x.device)[0] >= 9,
+            torch.cuda.get_device_capability(x.device)[0] >= 9, channels_last,
             num_warps=8, enable_fp_fusion=False,
         )
     return out

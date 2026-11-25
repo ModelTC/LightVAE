@@ -15,10 +15,12 @@ def use_triton(x, minimum_sm, backend):
             and torch.cuda.get_device_capability(x.device)[0] >= minimum_sm)
 
 
-def rms_silu(x, gamma, bias, scale, silu, backend="auto"):
+def rms_silu(x, gamma, bias, scale, silu, backend="auto", *, channels_last=False):
     # The kernel retains native BF16 arithmetic on SM90+ and uses explicitly
     # rounded FP32 operations on Ampere/Ada (which lack those PTX instructions).
     if use_triton(x, 8, backend):
+        if channels_last:
+            return triton_kernels.rms_silu(x, gamma, bias, scale, silu, channels_last=True)
         return triton_kernels.rms_silu(x, gamma, bias, scale, silu)
     value = F.normalize(x.float(), dim=1, eps=1e-12).to(x.dtype)
     value = (value * scale) * gamma + bias

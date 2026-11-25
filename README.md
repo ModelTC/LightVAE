@@ -87,6 +87,8 @@ from lightvae.h3_lightvae_encoder import Encoder
 
 Triton is optional for fused Wan kernels and is usually included with NVIDIA Linux PyTorch. H3 uses PyTorch operations; the ComfyUI node uses ComfyUI’s native H3 backend.
 
+For Wan streaming inference, call `decoder.optimize_inference(upsample="polyphase", channels_last=True)` after loading and casting the checkpoint, and before `torch.compile`. The `"transpose"` mode executes the same spatial phases with a strided transposed convolution. Choose `"default"` to retain the original upsamplers. The optimized BF16 paths may vary slightly in rounding.
+
 ## Training
 
 The [training guide](train/README.md) covers Wan2.1/Wan2.2 block search, LoRA
